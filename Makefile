@@ -6,7 +6,7 @@
 #    By: imabid <imabid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 11:20:17 by imabid            #+#    #+#              #
-#    Updated: 2022/06/08 15:13:07 by imabid           ###   ########.fr        #
+#    Updated: 2022/06/09 13:17:06 by imabid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ RM = rm -f
 SRCS =  cub3d.c \
 		lets_draw.c \
 		lets_init.c \
-		lines_draw.c 
+		lines_draw.c \
+		lets_move.c
 
 
 OBJS = $(SRCS:.c=.o)

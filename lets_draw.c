@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:43:09 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/08 14:44:07 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/13 15:51:10 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void    ft_clear(t_conf *conf)
 {
     int i =0, j = 0;
-    while(i < mapXX )
+    while(i < mapXX)
     {
         j = 0;
         while(j < mapYY)
@@ -35,10 +35,14 @@ void    player_print(t_conf *conf)
     double x = conf->player.px;
     double y = conf->player.py;
     i = -r;
+    int f = 0;
+    printf("%f -- \n",conf->player.rotangle);
     line(conf,conf->player.py,
 	conf->player.px,
-	(conf->player.py + (60 * cos(conf->player.rotangle))) ,
-	(conf->player.px + (60 * sin(conf->player.rotangle))), C2);
+	(conf->player.py + ( 64 * -sin(conf->player.rotangle))) ,
+	(conf->player.px + ( 64 * cos(conf->player.rotangle))), C2);
+
+    i = -r;
     while (i < r)
     {
         j = -r;
@@ -47,7 +51,7 @@ void    player_print(t_conf *conf)
             if ((i * i) + (j * j) <= (r * r))
             {
                 conf->img.addr[(int)((i + y)) *
-                (WIDTH) + (int)((j + x))] = C1;
+                (WIDTH) + (int)((j + x))] = C2;
             }
             j++;
         }

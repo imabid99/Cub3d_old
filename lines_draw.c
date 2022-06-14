@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:12:08 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/08 15:17:59 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/09 10:50:15 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,7 @@ void line(t_conf *conf, float x1, float y1, float x2, float y2, int color)
     py = 2 * dx1 - dy1;
 
     if (dy1 <= dx1)
-    {
         line_1(conf, x1, y1, x2, y2, color);
-    }
     else
-    {
         line_2(conf, x1, y1, x2, y2, color);
-    }
 }
