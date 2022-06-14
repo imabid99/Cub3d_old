@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/13 15:56:06 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/14 11:57:34 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,12 @@ void cast_rays(t_conf *conf)
     int i = 0;
     while(i < conf->ray.num_rays)
     {
-        conf->ray.rayangle += conf->ray.fov /conf->ray.num_rays;
+        conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
            line(conf,conf->player.py,
 	    conf->player.px,
 	    (conf->player.py + (200 * -sin((conf->ray.rayangle)))) ,
 	    (conf->player.px + (200 * cos((conf->ray.rayangle)))), C1);
-        conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
+        conf->ray.rayangle += conf->ray.fov /conf->ray.num_rays;
         i++;
     }
 }
