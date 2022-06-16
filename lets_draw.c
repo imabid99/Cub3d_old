@@ -36,7 +36,7 @@ void    player_print(t_conf *conf)
     double y = conf->player.py;
     i = -r;
     int f = 0;
-    printf("%f -- \n",conf->player.rotangle);
+    // printf("%f -- \n",conf->player.rotangle);
     line(conf,conf->player.py,
 	conf->player.px,
 	(conf->player.py + ( 64 * -sin(conf->player.rotangle))) ,

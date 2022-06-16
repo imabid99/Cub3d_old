@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/11 17:00:02 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/15 14:57:07 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@
 #define mapXX 16
 #define mapYY 16
 #define WIDTH 16 * 64
-#define HEIGHT mapYY * TILE_SIZE
+#define HEIGHT 16 * 64
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
+#define PI1 
 
 
 
@@ -72,6 +73,21 @@ typedef struct ray
 	double fov;
 	double rayangle;
 	double num_rays;
+	double wallhitx;
+	double wallhity;
+	double distance;
+	double xstep;
+	double ystep;
+	double xintercept;
+	double yintercept;
+	int facingdown;
+	int facingup;
+	int facingright;
+	int facingleft;
+	double nexthox;
+	double nexthoy;
+	double foundhorwallhit;
+
 } t_ray;
 typedef struct s_img
 {
@@ -109,4 +125,5 @@ int player_move(int key,void *param);
 int keyrealeased(int key,t_conf *conf);
 int    iam_wall(t_conf *conf);
 void    rotate(t_conf *conf);
+void    init_all2(t_conf *conf);
 #endif
