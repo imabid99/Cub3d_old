@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/15 14:57:07 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/18 18:06:41 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ typedef struct ray
 	double fov;
 	double rayangle;
 	double num_rays;
-	double wallhitx;
-	double wallhity;
+	double horwallhitx;
+	double horwallhity;
+	double verwallhitx;
+	double verwallhity;
 	double distance;
 	double xstep;
 	double ystep;
@@ -86,7 +88,16 @@ typedef struct ray
 	int facingleft;
 	double nexthox;
 	double nexthoy;
+	double nextverx;
+	double nextvery;
 	double foundhorwallhit;
+	double foundverwallhit;
+	double verdist;
+	double hordist;
+	double wallhitX;
+	double wallhitY;
+	double washitvert;
+	
 
 } t_ray;
 typedef struct s_img

@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/11 16:50:16 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/18 14:23:04 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    init_all(t_conf *conf)
     conf->player.px = conf->player.dxx * 64 + 64 / 2 ;
     conf->player.rotangle = PI / 2; 
     conf->player.movespeed = 3;
-    conf->player.rotspeed = 3 * (PI / 180);
+    conf->player.rotspeed = 1 * (PI / 180);
     conf->player.width = mapXX * TILE_SIZE;
     conf->player.height = mapYY * TILE_SIZE;
     conf->player.tdirection = 0;
@@ -40,6 +40,8 @@ void    init_all(t_conf *conf)
     conf->player.to_w = 0;
     conf->player.to_s = 0;
     conf->player.to_d = 0;
+    conf->player.to_back = 0;
+    conf->player.to_forward = 0;
     conf->ray.fov = 60 * (PI / 180); // move degres to radian
     conf->ray.num_rays = WIDTH; 
     

@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/11 17:02:27 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/18 13:15:14 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ int keyrealeased(int key,t_conf *conf)
     else if(key == 123)
         conf->player.to_forward = 0;
     else if(key == 124)
+    {
         conf->player.to_back = 0;
-    return 0;
+        // puts("hiahia");
+    }
+    return 1;
 }
 
 // void    move_to(t_conf *conf)
