@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:43:09 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/13 15:51:10 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/19 14:16:08 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void    player_print(t_conf *conf)
     // printf("%f -- \n",conf->player.rotangle);
     line(conf,conf->player.py,
 	conf->player.px,
-	(conf->player.py + ( 64 * -sin(conf->player.rotangle))) ,
+	(conf->player.py + ( 64 * sin(conf->player.rotangle))) ,
 	(conf->player.px + ( 64 * cos(conf->player.rotangle))), C2);
 
     i = -r;
