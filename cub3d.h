@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/19 15:01:51 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/20 15:44:07 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
 #define PI1 
-
+#define minimap 0.2
 
 
 typedef struct	s_player {
@@ -97,9 +97,14 @@ typedef struct ray
 	double wallhitX;
 	double wallhitY;
 	double washitvert;
+} t_ray;
+typedef struct s_wall
+{
+	double wallstripheight;
+	double distancepro;
 	
 
-} t_ray;
+} t_wall;
 typedef struct s_img
 {
 	void *img;
@@ -118,6 +123,7 @@ typedef struct s_conf {
 	t_player	player;
 	t_img	img;
 	t_ray	ray;
+	t_wall wall;
 }		t_conf;
 
 

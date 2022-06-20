@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/20 10:01:11 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/20 15:44:32 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void print_rectangl(t_conf *conf, int y, int x, int color, int line)
         j = 0;
         while (j < TILE_SIZE - line)
         {
-            conf->img.addr[(y + j) * WIDTH + x + i] = color;
+            conf->img.addr[(int)((y + j) * minimap) * WIDTH + (int)((x + i) * minimap)] = color;
+            // conf->img.addr[(( (minimap * y) + (minimap * j)) * WIDTH + (minimap * x) + (minimap * i))] = color;
             j++;
         }
         i++;
@@ -327,10 +328,10 @@ void cast_rays(t_conf *conf)
     {
         conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
         check_intersection(conf);
-        line(conf,conf->player.py,
-	    conf->player.px,
-	    conf->ray.wallhitY ,
-	    conf->ray.wallhitX, C1);
+        line(conf,conf->player.py * minimap,
+	    conf->player.px * minimap,
+	    conf->ray.wallhitY * minimap,
+	    conf->ray.wallhitX * minimap, C1);
         conf->ray.rayangle += conf->ray.fov /conf->ray.num_rays;
         i++;
     }
@@ -397,9 +398,9 @@ void mapp_print(t_conf *conf)
         {
             // printf("%c",map[i][j]);
             if(map[i][j] == '1')
-                print_rectangl(conf,i,j,BLACK,0);
+                print_rectangl(conf,i, j,GRAY,0);
             else if(map[i][j] == '0' || map[i][j] == 'S')
-                print_rectangl(conf,i,j,WHITE,0);
+                print_rectangl(conf,i, j,WHITE,0);
             j++;
         }
         // printf("\n");
@@ -418,13 +419,22 @@ void mapp_print(t_conf *conf)
     //     i++;
     // }
 }
-
+// void    render3d(t_conf *conf)
+// {
+//     int i = 0;
+//     while(i < conf->ray.num_rays)
+//     {
+//         conf->wall.distancepro = (WIDTH / 2) / tan(conf->ray.fov / 2);
+//         conf->wall.wallstripheight = (TILE_SIZE / conf->ray.distance) * conf->wall.distancepro;
+//     }
+// }
 int main_loop(t_conf *conf)
 {
     ft_clear(conf);
     mapp_print(conf);
     cast_rays(conf);
     player_print(conf);
+    // render3d(conf);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);
