@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/20 15:44:07 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/21 14:02:32 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 #define ang 3.14
 #define rotationAngle = ang / 2;
 #define DR (1 * (M_PI / 180))
-#define FOV 
 #define TILE_SIZE 64
 #define mapXX 16
 #define mapYY 16
@@ -42,6 +41,7 @@
 #define PI 3.1415926535
 #define PI1 
 #define minimap 0.2
+#define FOV (60 * (M_PI / 180))
 
 
 typedef struct	s_player {
@@ -102,7 +102,10 @@ typedef struct s_wall
 {
 	double wallstripheight;
 	double distancepro;
-	
+	double playerWallDist;
+	int drawStartx;
+	int drawStarty;
+	double *line_distance;
 
 } t_wall;
 typedef struct s_img
@@ -142,5 +145,6 @@ int player_move(int key,void *param);
 int keyrealeased(int key,t_conf *conf);
 int    iam_wall(t_conf *conf);
 void    rotate(t_conf *conf);
+void print_rectangl1(t_conf *conf, int y, int x, int color, int line);
 void    init_all2(t_conf *conf);
 #endif

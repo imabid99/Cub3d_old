@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:43:09 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/20 15:27:19 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/21 14:03:08 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void    ft_clear(t_conf *conf)
 {
     int i =0, j = 0;
-    while(i < mapXX)
+    while(i < mapXX * 64)
     {
         j = 0;
-        while(j < mapYY)
+        while(j < mapYY * 64)
         {
-            print_rectangl(conf,i,j,BLACK,0);  
+            print_rectangl1(conf,i,j,BLACK,0);  
             j++;
         }
         i++;

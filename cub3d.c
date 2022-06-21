@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/20 15:44:32 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/21 14:07:59 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@ void print_rectangl(t_conf *conf, int y, int x, int color, int line)
         }
         i++;
     }
+}
+void print_rectangl1(t_conf *conf, int y, int x, int color, int line)
+{
+    // int i;
+    // int j;
+
+    // x *= 1;
+    // y *= conf->wall.wallstripheight;
+    // i = 0;
+    // while (i < TILE_SIZE - line)
+    // {
+    //     j = 0;
+    //     while (j < TILE_SIZE - line)
+    //     {
+            conf->img.addr[(int)((y)) * WIDTH + (int)((x))] = color;
+            // conf->img.addr[(( (minimap * y) + (minimap * j)) * WIDTH + (minimap * x) + (minimap * i))] = color;
+    //         j++;
+    //     }
+    //     i++;
+    // }
 }
 
 float playerX = 100;
@@ -58,7 +78,7 @@ char map[16][16] =
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
         {'1','1','0','0','0','0','0','0','0','0','0','0','0','0','1','1'},
         {'1','0','1','0','0','0','0','0','0','0','0','0','0','1','0','1'},
-        {'1','0','0','1','0','0','0','0','0','S','0','0','1','0','0','1'},
+        {'1','0','0','1','0','0','0','0','0','0','0','0','1','0','0','1'},
         {'1','0','0','1','0','0','0','1','0','1','0','0','1','0','0','1'},
         {'1','0','0','1','0','0','0','1','0','1','0','0','1','0','0','1'},
         {'1','0','0','1','1','1','1','1','0','1','1','1','1','0','0','1'},
@@ -68,7 +88,7 @@ char map[16][16] =
         {'1','0','0','1','0','1','0','0','0','0','1','0','1','0','0','1'},
         {'1','0','1','1','1','1','0','0','0','0','1','1','1','1','0','1'},
         {'1','0','1','0','0','1','0','0','0','0','1','0','0','1','0','1'},
-        {'1','0','1','1','1','1','0','0','0','0','1','1','1','1','0','1'},
+        {'1','0','1','1','1','1','0','S','0','0','1','1','1','1','0','1'},
         {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
@@ -95,8 +115,7 @@ char    has_wall(double x,double y)
         return map[mapindexY][mapindexX];
 }
 void move_to(t_conf *conf)
-{
-    
+{   
     float pdx = -sin(conf->player.rotangle - PI / 2);
     float pdy = cos(conf->player.rotangle - PI / 2);
     if (conf->player.to_a == 1)
@@ -323,9 +342,11 @@ void cast_rays(t_conf *conf)
     int columnbr = 0;
     conf->ray.rayangle = conf->player.rotangle - (conf->ray.fov / 2);
     int i = 0;
+    conf->wall.line_distance = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
     // while(i < 1)
     {
+        
         conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
         check_intersection(conf);
         line(conf,conf->player.py * minimap,
@@ -333,6 +354,7 @@ void cast_rays(t_conf *conf)
 	    conf->ray.wallhitY * minimap,
 	    conf->ray.wallhitX * minimap, C1);
         conf->ray.rayangle += conf->ray.fov /conf->ray.num_rays;
+        conf->wall.line_distance[i] = conf->ray.distance;
         i++;
     }
     // line(conf,conf->player.py ,
@@ -419,22 +441,57 @@ void mapp_print(t_conf *conf)
     //     i++;
     // }
 }
-// void    render3d(t_conf *conf)
-// {
-//     int i = 0;
-//     while(i < conf->ray.num_rays)
-//     {
-//         conf->wall.distancepro = (WIDTH / 2) / tan(conf->ray.fov / 2);
-//         conf->wall.wallstripheight = (TILE_SIZE / conf->ray.distance) * conf->wall.distancepro;
-//     }
-// }
+void    ft_draw_line(t_conf *conf)
+{
+    int x;
+    int i = 0;
+    int j ;
+    // printf("x = %d, y = %d, conf->wall.drawStarty = %f, ")
+     printf("startx = %d, starty = %d\n",conf->wall.drawStartx, conf->wall.drawStarty);
+    while (i < 1)
+    {
+        j = conf->wall.drawStarty < 0 ? -conf->wall.drawStarty : 0;
+        while (j < conf->wall.wallstripheight)
+        {
+            // printf("kahria1 = %d\n",j);
+            conf->img.addr[((conf->wall.drawStarty + j) * WIDTH + (conf->wall.drawStartx + i))] = C1;
+            j++;
+        }
+        i++;
+    }
+}
+void    render3d(t_conf *conf)
+{
+    double _ang;
+
+    _ang = conf->player.rotangle + (FOV/ 2);
+    conf->wall.playerWallDist = (WIDTH / 2) / tan(FOV / 2);
+        printf("wallDist = %f\n",conf->wall.playerWallDist);
+    conf->wall.wallstripheight = 1;
+    conf->wall.drawStartx = 0;
+    
+    while (conf->wall.drawStartx < conf->ray.num_rays)
+    {
+        _ang = normalize_ang(_ang);
+
+        printf("ray = %f\n",conf->ray.distance);
+        conf->wall.wallstripheight = (TILE_SIZE / conf->wall.line_distance[conf->wall.drawStartx]) * conf->wall.playerWallDist;
+        conf->wall.wallstripheight = conf->wall.wallstripheight >= HEIGHT ? HEIGHT : conf->wall.wallstripheight;
+        printf("kahria1 = %f, kharia2 = %f\n",conf->wall.wallstripheight,conf->wall.playerWallDist);
+        conf->wall.drawStarty = (WIDTH / 2) - (conf->wall.wallstripheight / 2);
+        
+        ft_draw_line(conf);
+        _ang -= FOV/ conf->ray.num_rays;
+        conf->wall.drawStartx++;
+    }
+}
 int main_loop(t_conf *conf)
 {
     ft_clear(conf);
     mapp_print(conf);
     cast_rays(conf);
     player_print(conf);
-    // render3d(conf);
+    render3d(conf);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);
@@ -443,7 +500,7 @@ int main_loop(t_conf *conf)
 void cub3d_hook(t_conf *conf)
 {
     mlx_clear_window(conf->mlx, conf->mlx_win);
-    // ft_clear(conf);
+    ft_clear(conf);
     mlx_hook(conf->mlx_win, 2, 1L << 0, player_move, conf);
     mlx_hook(conf->mlx_win, 17, 0, close_win, conf);
     mlx_hook(conf->mlx_win, 3, 1L << 1, keyrealeased, conf);
@@ -455,9 +512,6 @@ int main(void)
     t_conf conf;
     win_init(&conf);
     img_init(&conf);
-    // int i = 0;
-    // int j = 0;
-    // printf("map[0] %c\n",map[5][3]);
     init_all(&conf);
     cub3d_hook(&conf);
     mlx_loop(conf.mlx);
