@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 10:11:54 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 12:39:51 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,19 @@ char map[16][16] =
         // {1,0,0,0,0,0,0,1,1},
         // {1,1,1,1,1,1,1,1,1},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
-        {'1','1','0','0','0','0','0','0','0','0','0','0','0','0','1','1'},
-        {'1','0','1','0','0','0','0','0','0','0','0','0','0','1','0','1'},
-        {'1','0','0','1','0','0','0','0','0','0','0','0','1','0','0','1'},
-        {'1','0','0','1','0','0','0','1','0','1','0','0','1','0','0','1'},
-        {'1','0','0','1','0','0','0','1','0','1','0','0','1','0','0','1'},
-        {'1','0','0','1','1','1','1','1','0','1','0','1','1','0','0','1'},
-        {'1','0','0','1','0','1','0','0','0','0','0','0','1','0','0','1'},
-        {'1','0','0','1','0','1','0','0','0','0','0','0','1','0','0','1'},
-        {'1','0','0','1','0','1','0','0','0','0','0','0','1','0','0','1'},
-        {'1','0','0','1','0','1','0','0','S','0','0','0','1','0','0','1'},
-        {'1','0','1','1','1','1','0','0','0','0','0','1','1','1','0','1'},
-        {'1','0','1','0','0','1','0','0','0','0','0','0','0','1','0','1'},
-        {'1','0','1','1','1','1','0','0','0','0','0','1','1','1','0','1'},
+        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','1','1','1','1','1','0','0','0','0','1'},
+        {'1','0','0','0','0','0','1','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','1','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','1','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1','1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','0','S','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
@@ -127,7 +127,7 @@ double disbtp(double x1, double y1, double x2, double y2)
 }
 char    has_wall(t_conf *conf,double x,double y)
 {
-        if (x < 0 || x > conf->player.width || y < 0 || y > conf->player.height) {
+        if (x < 0 || x > (16 * 64)|| y < 0 || y > (16 * 64)) {
             return '1';
         }
         int mapindexX = floor(x / TILE_SIZE);
@@ -205,8 +205,10 @@ double    hoz_intersection(t_conf *conf)
         // incrementiw xstep o ystep tanl9aw wallƒ
     // while(1)
     // nextVertTouchX >= 0 && nextVertTouchX <= WINDOW_WIDTH && nextVertTouchY >= 0 && nextVertTouchY <= WINDOW_HEIGHT
-    while(conf->ray.nexthox >= 0 && conf->ray.nexthox <= conf->player.width && conf->ray.nexthoy >= 0
-        && conf->ray.nexthoy <= conf->player.height)
+    while(conf->ray.nexthox >= 0 && conf->ray.nexthox <= (16 * 64) && conf->ray.nexthoy >= 0
+        && conf->ray.nexthoy <= (16 * 64))
+    // while(conf->ray.nexthox >= 0 && conf->ray.nexthox <= conf->player.width && conf->ray.nexthoy >= 0
+    //     && conf->ray.nexthoy <= conf->player.height)
     {
             // puts("hahaha");
             // printf("----%c----\n",has_wall(conf->ray.nexthox ,conf->ray.nexthoy - conf->ray.facingup ? 1 : 0));
@@ -227,7 +229,7 @@ double    hoz_intersection(t_conf *conf)
     if(conf->ray.foundhorwallhit)
     {
     //we return distance between two poins
-        printf(" disbtp = %f\n",disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
+        // printf(" disbtp = %f\n",disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
         return(disbtp(conf->player.px,conf->player.py,conf->ray.horwallhitx,conf->ray.horwallhity));
         
     }
@@ -255,10 +257,10 @@ double   ver_intersection(t_conf *conf)
     conf->ray.nextvery = conf->ray.yintercept;
         // incrementiw xstep o ystep tanl9aw wall
     // while(1)
-    // while(conf->ray.nextverx >= 0 && conf->ray.nextverx <= 16 * 64 && conf->ray.nextvery >= 0
-    //     && conf->ray.nextvery <= 16 * 64)
-    while(conf->ray.nextverx >= 0 && conf->ray.nextverx <= conf->player.width && conf->ray.nextvery >= 0
-        && conf->ray.nextvery <= conf->player.height)
+    while(conf->ray.nextverx >= 0 && conf->ray.nextverx <= (16 * 64) && conf->ray.nextvery >= 0
+        && conf->ray.nextvery <= (16 * 64))
+    // while(conf->ray.nextverx >= 0 && conf->ray.nextverx <= conf->player.width && conf->ray.nextvery >= 0
+    //     && conf->ray.nextvery <= conf->player.height)
     {
         // printf("%d\n",conf->player.width);
         if(has_wall(conf,conf->ray.nextverx - (conf->ray.facingleft ? 1 : 0),conf->ray.nextvery) == '1') 
@@ -276,7 +278,7 @@ double   ver_intersection(t_conf *conf)
     if(conf->ray.foundverwallhit)
     {
     //we return distance between two poins
-    printf(" disbtp = %f\n",disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
+    // printf(" disbtp = %f\n",disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
         return(disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
         
     }
@@ -380,10 +382,10 @@ void cast_rays(t_conf *conf)
         // puts("here");
         conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
         check_intersection(conf);
-        line(conf,conf->player.py * minimap,
-	    conf->player.px * minimap,
-	    conf->ray.wallhitY * minimap,
-	    conf->ray.wallhitX * minimap, C1);
+        // line(conf,conf->player.py * minimap,
+	    // conf->player.px * minimap,
+	    // conf->ray.wallhitY * minimap,
+	    // conf->ray.wallhitX * minimap, C1);
         // line(conf,conf->player.py ,
 	    // conf->player.px ,
 	    // conf->ray.wallhitY ,
@@ -489,7 +491,7 @@ void    ft_draw_line(t_conf *conf)
         while (j < conf->wall.wallstripheight)
         {
             // printf("kahria1 = %d\n",j);
-            conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = WHITE;
+            conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = GRAY;
             j++;
         }
         i++;
@@ -510,7 +512,11 @@ void    render3d(t_conf *conf)
         // _ang = normalize_ang(_ang);
 
         // printf("ray = %f\n",conf->ray.distance);
-        conf->wall.wallstripheight = (TILE_SIZE / conf->wall.line_distance[conf->wall.drawStartx]) * conf->wall.playerWallDist;
+        // printf("rayangle = %f rootangle %f\n",conf->ray.rayangle,conf->player.rotangle);
+        // printf("line distane = %f\n",conf->wall.line_distance[conf->wall.drawStartx]);
+        conf->wall.corrwall = conf->wall.line_distance[conf->wall.drawStartx] * cos(conf->ray.rayangle - conf->player.rotangle);
+        
+        conf->wall.wallstripheight = (TILE_SIZE / conf->wall.corrwall) * conf->wall.playerWallDist;
         conf->wall.wallstripheight = conf->wall.wallstripheight >= conf->player.height ? conf->player.height : conf->wall.wallstripheight;
         // printf("kahria1 = %f, kharia2 = %f\n",conf->wall.wallstripheight,conf->wall.playerWallDist);
         conf->wall.drawStarty = (conf->player.height / 2) - (conf->wall.wallstripheight / 2);
@@ -524,9 +530,9 @@ int main_loop(t_conf *conf)
 {
     // printf("widht = %d , height = %d \n",conf->player.width,conf->player.height);
     ft_clear(conf);
-    mapp_print(conf);
-    player_print(conf);
+    // mapp_print(conf);
     cast_rays(conf);
+    // player_print(conf);
     render3d(conf);
     move_to(conf);
     rotate(conf);

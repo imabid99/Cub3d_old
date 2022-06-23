@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 09:27:16 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 12:41:02 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 #define TILE_SIZE 64
 // #define mapXX 16
 // #define mapYY 16
-#define WIDTH 800
-#define HEIGHT 1000
+#define WIDTH 1280
+#define HEIGHT 820
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
 #define PI1 
@@ -110,6 +110,7 @@ typedef struct s_wall
 	int drawStartx;
 	int drawStarty;
 	double *line_distance;
+	double corrwall;
 
 } t_wall;
 typedef struct s_img
