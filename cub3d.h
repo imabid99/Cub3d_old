@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/21 14:02:32 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 09:27:16 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@
 #define rotationAngle = ang / 2;
 #define DR (1 * (M_PI / 180))
 #define TILE_SIZE 64
-#define mapXX 16
-#define mapYY 16
-#define WIDTH 16 * 64
-#define HEIGHT 16 * 64
+// #define mapXX 16
+// #define mapYY 16
+#define WIDTH 800
+#define HEIGHT 1000
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
 #define PI1 
-#define minimap 0.2
+#define minimap 0.1
 #define FOV (60 * (M_PI / 180))
+#define movesped 8
+#define rootsped 
 
 
 typedef struct	s_player {
@@ -53,8 +55,8 @@ typedef struct	s_player {
 	double rotangle;
 	double rotspeed;
 	int movespeed;
-	double width;
-	double height;
+	// int16_t width;
+	// int16_t height;
 	double tdirection;
 	double rspeed;
 	double movestep;
@@ -66,6 +68,8 @@ typedef struct	s_player {
 	int 	to_forward;
 	int 	to_back;
 	double fov;
+	int width;
+	int height;
 	// double num_rays;
 }				t_player;
 typedef struct ray

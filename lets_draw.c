@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:43:09 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/21 14:03:08 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 09:19:32 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void    ft_clear(t_conf *conf)
 {
     int i =0, j = 0;
-    while(i < mapXX * 64)
+    while(i < conf->player.height)
     {
         j = 0;
-        while(j < mapYY * 64)
+        while(j < conf->player.width)
         {
             print_rectangl1(conf,i,j,BLACK,0);  
             j++;
@@ -37,10 +37,10 @@ void    player_print(t_conf *conf)
     i = -r;
     int f = 0;
     // printf("%f -- \n",conf->player.rotangle);
-    line(conf,conf->player.py * minimap,
-	conf->player.px * minimap,
-	(conf->player.py * minimap + ( 30 * sin(conf->player.rotangle))) ,
-	(conf->player.px * minimap + ( 30 * cos(conf->player.rotangle))), C2);
+    // line(conf,conf->player.py * minimap,
+	// conf->player.px * minimap,
+	// ((conf->player.py  + ( 10 * sin(conf->player.rotangle)) * minimap)) ,
+	// ((conf->player.px  + ( 10 * cos(conf->player.rotangle)) * minimap)), C2);
 
     i = -r;
     while (i < r)
@@ -51,7 +51,7 @@ void    player_print(t_conf *conf)
             if ((i * i) + (j * j) <= (r * r))
             {
                 conf->img.addr[(int)(((i + y)) * minimap) *
-                (WIDTH) + (int)(((j + x) * minimap))] = C2;
+                conf->player.width + (int)(((j + x) * minimap))] = C2;
                 // conf->img.addr[(int)(((i + y))) *
                 // (WIDTH) + (int)(((j + x)))] = C2;
             }
