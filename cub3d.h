@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 12:41:02 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 14:23:21 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct	s_player {
 typedef struct ray
 {
 	double fov;
-	double rayangle;
+	double *rayangle;
 	double num_rays;
 	double horwallhitx;
 	double horwallhity;

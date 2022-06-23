@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:43:09 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 09:19:32 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 14:45:12 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void    player_print(t_conf *conf)
 	// conf->player.px * minimap,
 	// ((conf->player.py  + ( 10 * sin(conf->player.rotangle)) * minimap)) ,
 	// ((conf->player.px  + ( 10 * cos(conf->player.rotangle)) * minimap)), C2);
-
     i = -r;
     while (i < r)
     {

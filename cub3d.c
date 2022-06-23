@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 12:39:51 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 14:42:04 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ void move_to(t_conf *conf)
     {
         if(map[(int)((conf->player.py - (cos(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)] != '1')
         {
-        conf->player.px += sin(conf->player.rotangle) * conf->player.movespeed;
-        conf->player.py -= cos(conf->player.rotangle) * conf->player.movespeed;   
+            conf->player.px += sin(conf->player.rotangle) * conf->player.movespeed;
+            conf->player.py -= cos(conf->player.rotangle) * conf->player.movespeed;   
         }
     }
     if (conf->player.to_d == 1)
@@ -161,6 +161,11 @@ void move_to(t_conf *conf)
             conf->player.px += pdx * conf->player.movespeed;
             conf->player.py += pdy * conf->player.movespeed;
         }
+        // else
+        // {
+        //     conf->player.px -= sin(conf->player.rotangle) * conf->player.movespeed;
+        //     conf->player.py += cos(conf->player.rotangle) * conf->player.movespeed;
+        // }
     }
     if (conf->player.to_s == 1)
     {
@@ -172,29 +177,29 @@ void move_to(t_conf *conf)
         } 
     }
 }
-void    rayfacing(t_conf *conf)
+void    rayfacing(t_conf *conf, double _ang)
 {
-    conf->ray.facingdown = conf->ray.rayangle > 0 && conf->ray.rayangle < PI;
+    conf->ray.facingdown = _ang > 0 && _ang < PI;
     conf->ray.facingup = !conf->ray.facingdown;
-    conf->ray.facingright = conf->ray.rayangle < 0.5 * PI || conf->ray.rayangle > 1.5 * PI;
+    conf->ray.facingright = _ang < 0.5 * PI || _ang > 1.5 * PI;
     conf->ray.facingleft = !conf->ray.facingright;
     // printf("%d\n",conf->ray.facingright);  
 }
-double    hoz_intersection(t_conf *conf)
+double    hoz_intersection(t_conf *conf, double _ang)
 {
     // init_all2(conf);
     //   bach nl9aw y_coordinate dyal closest horix grid intersection
     conf->ray.yintercept = floor(conf->player.py / TILE_SIZE) * TILE_SIZE;
     conf->ray.yintercept += conf->ray.facingdown ? TILE_SIZE : 0; 
     // bach nl9aw x_coordinate dyal closest horix grid intersection
-    conf->ray.xintercept = conf->player.px + (conf->ray.yintercept - conf->player.py) / tan(conf->ray.rayangle);
+    conf->ray.xintercept = conf->player.px + (conf->ray.yintercept - conf->player.py) / tan(_ang);
     // printf("--%f---%f--\n",floor(conf->player.py/TILE_SIZE),conf->player.py / TILE_SIZE);
 
     // n7sbo increment dyal xstep o ystep
     conf->ray.ystep = TILE_SIZE;
     conf->ray.ystep *= conf->ray.facingup ? -1 : 1;
     
-    conf->ray.xstep = TILE_SIZE / tan(conf->ray.rayangle); 
+    conf->ray.xstep = TILE_SIZE / tan(_ang); 
     conf->ray.xstep *= (conf->ray.facingleft && conf->ray.xstep > 0) ? -1 : 1;
     conf->ray.xstep *= (conf->ray.facingright && conf->ray.xstep < 0) ? -1 : 1;
 
@@ -236,20 +241,20 @@ double    hoz_intersection(t_conf *conf)
     // puts("here");
     return (DBL_MAX);
 }
-double   ver_intersection(t_conf *conf)
+double   ver_intersection(t_conf *conf, double _ang)
 {
      //   bach nl9aw x_coordinate dyal closest ver grid intersection
     conf->ray.xintercept = floor(conf->player.px / TILE_SIZE) * TILE_SIZE;
     conf->ray.xintercept += conf->ray.facingright ? TILE_SIZE : 0; 
     // bach nl9aw y_coordinate dyal closest ver grid intersection
-    conf->ray.yintercept = conf->player.py + (conf->ray.xintercept - conf->player.px) * tan(conf->ray.rayangle);
+    conf->ray.yintercept = conf->player.py + (conf->ray.xintercept - conf->player.px) * tan(_ang);
     // printf("--%f---%f--\n",floor(conf->player.py/TILE_SIZE),conf->player.py / TILE_SIZE);
 
     // n7sbo increment dyal xstep o ystep
     conf->ray.xstep = TILE_SIZE;
     conf->ray.xstep *= conf->ray.facingleft ? -1 : 1;
     
-    conf->ray.ystep = TILE_SIZE * tan(conf->ray.rayangle); 
+    conf->ray.ystep = TILE_SIZE * tan(_ang); 
     conf->ray.ystep *= (conf->ray.facingup && conf->ray.ystep > 0) ? -1 : 1;
     conf->ray.ystep *= (conf->ray.facingdown && conf->ray.ystep < 0) ? -1 : 1;
 
@@ -285,14 +290,14 @@ double   ver_intersection(t_conf *conf)
     // puts("here");
     return (DBL_MAX);
 }
-void    check_intersection(t_conf *conf)
+void    check_intersection(t_conf *conf, double _ang)
 {
     init_all2(conf);
-    conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
-    rayfacing(conf);
-    conf->ray.hordist = hoz_intersection(conf);
+    _ang = normalize_ang(_ang);
+    rayfacing(conf, _ang);
+    conf->ray.hordist = hoz_intersection(conf, _ang);
     // hoz_intersection(conf);
-    conf->ray.verdist = ver_intersection(conf);
+    conf->ray.verdist = ver_intersection(conf, _ang);
     // printf("hordist = %f ==== verdist = %f ",floor(conf->ray.hordist),floor(conf->ray.verdist));
     // printf("angle = %f\n",conf->ray.rayangle);
     // exit(0);
@@ -373,24 +378,27 @@ void    rotate(t_conf *conf)
 void cast_rays(t_conf *conf)
 {
     // int columnbr = 0;
-    conf->ray.rayangle = conf->player.rotangle - (FOV / 2);
+    double _ang = 0;
+    _ang = conf->player.rotangle - (FOV / 2);
     int i = 0;
     conf->wall.line_distance = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->ray.rayangle = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
     // while(i < 1)
     {
         // puts("here");
-        conf->ray.rayangle = normalize_ang(conf->ray.rayangle);
-        check_intersection(conf);
-        // line(conf,conf->player.py * minimap,
-	    // conf->player.px * minimap,
-	    // conf->ray.wallhitY * minimap,
-	    // conf->ray.wallhitX * minimap, C1);
+        _ang = normalize_ang(_ang);
+        check_intersection(conf, _ang);
+        line(conf,conf->player.py * minimap,
+	    conf->player.px * minimap,
+	    conf->ray.wallhitY * minimap,
+	    conf->ray.wallhitX * minimap, C1);
         // line(conf,conf->player.py ,
 	    // conf->player.px ,
 	    // conf->ray.wallhitY ,
 	    // conf->ray.wallhitX , C1);
-        conf->ray.rayangle += FOV /conf->ray.num_rays;
+        _ang += FOV /conf->ray.num_rays;
+        conf->ray.rayangle[i] = _ang;
         conf->wall.line_distance[i] = conf->ray.distance;
         i++;
     }
@@ -514,8 +522,8 @@ void    render3d(t_conf *conf)
         // printf("ray = %f\n",conf->ray.distance);
         // printf("rayangle = %f rootangle %f\n",conf->ray.rayangle,conf->player.rotangle);
         // printf("line distane = %f\n",conf->wall.line_distance[conf->wall.drawStartx]);
-        conf->wall.corrwall = conf->wall.line_distance[conf->wall.drawStartx] * cos(conf->ray.rayangle - conf->player.rotangle);
-        
+        conf->wall.corrwall = conf->wall.line_distance[conf->wall.drawStartx] * cos(conf->ray.rayangle[conf->wall.drawStartx] - conf->player.rotangle);
+        // printf("%f\n",conf->wall.corrwall);
         conf->wall.wallstripheight = (TILE_SIZE / conf->wall.corrwall) * conf->wall.playerWallDist;
         conf->wall.wallstripheight = conf->wall.wallstripheight >= conf->player.height ? conf->player.height : conf->wall.wallstripheight;
         // printf("kahria1 = %f, kharia2 = %f\n",conf->wall.wallstripheight,conf->wall.playerWallDist);
@@ -530,9 +538,9 @@ int main_loop(t_conf *conf)
 {
     // printf("widht = %d , height = %d \n",conf->player.width,conf->player.height);
     ft_clear(conf);
-    // mapp_print(conf);
+    mapp_print(conf);
     cast_rays(conf);
-    // player_print(conf);
+    player_print(conf);
     render3d(conf);
     move_to(conf);
     rotate(conf);

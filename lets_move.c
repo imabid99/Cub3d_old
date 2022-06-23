@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/22 19:26:56 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 14:45:38 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 //         return 0;
 //     // return map[x][y] != 0 ;
 // }
+
 int player_move(int key,void *param)
 {
     t_conf *conf;
