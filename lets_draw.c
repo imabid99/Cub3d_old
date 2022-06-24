@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:43:09 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 14:45:12 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/24 11:35:45 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void    ft_clear(t_conf *conf)
 
 void    player_print(t_conf *conf)
 {
-    int r = 5; 
+    int r = 15; 
     int i = 0;
     int j = 0;
     double x = conf->player.px;

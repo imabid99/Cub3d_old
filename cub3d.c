@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 14:42:04 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/24 12:05:27 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,20 @@ char map[16][16] =
         // {1,0,0,0,0,0,0,1,1},
         // {1,0,0,0,0,0,0,1,1},
         // {1,1,1,1,1,1,1,1,1},
-        {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
-        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','1','1','1','1','1','0','0','0','0','1'},
-        {'1','0','0','0','0','0','1','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','1','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','1','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','1','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','1','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','1','1','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','0','S','0','0','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+        {'1','1','1','1','1','1','1','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','1','1','0','0','0','0','1'},
+        {'1','0','0','0','0','0','1','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','1','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1','1','1','1','1','1','1','1','1'},
+        {'1','0','0','0','0','0','0','0','S','1','0','0','0','0','0','1'},
+        {'1','0','0','0','0','0','0','0','0','0','1','1','1','1','0','1'},
         {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
@@ -305,19 +305,22 @@ void    check_intersection(t_conf *conf, double _ang)
     // hna kanstori smallest of the distancce
     // conf->ray.wallhitX = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.horwallhitx : conf->ray.verwallhitx;
     // conf->ray.wallhitY = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.horwallhity : conf->ray.verwallhity;
-    conf->ray.distance = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.hordist : conf->ray.verdist;
+    // conf->ray.distance = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.hordist : conf->ray.verdist;
     // conf->ray.washitvert = conf->ray.verdist < conf->ray.hordist;
     // n7asbo both horz and ver onchofo chkon li 9rab
     if (conf->ray.verdist > conf->ray.hordist)
 	{
 		conf->ray.wallhitX = conf->ray.horwallhitx;
 		conf->ray.wallhitY = conf->ray.horwallhity;
+        conf->ray.distance = conf->ray.hordist;
+        conf->ray.washitvert = 0;
 	}
 	else
 	{
-		conf->ray.washitvert = 1;
 		conf->ray.wallhitX  = conf->ray.verwallhitx;
 		conf->ray.wallhitY  = conf->ray.verwallhity;
+        conf->ray.distance = conf->ray.verdist;
+		conf->ray.washitvert = 1;
 
 	}
      
@@ -389,10 +392,10 @@ void cast_rays(t_conf *conf)
         // puts("here");
         _ang = normalize_ang(_ang);
         check_intersection(conf, _ang);
-        line(conf,conf->player.py * minimap,
-	    conf->player.px * minimap,
-	    conf->ray.wallhitY * minimap,
-	    conf->ray.wallhitX * minimap, C1);
+        // line(conf,conf->player.py * minimap,
+	    // conf->player.px * minimap,
+	    // conf->ray.wallhitY * minimap,
+	    // conf->ray.wallhitX * minimap, C1);
         // line(conf,conf->player.py ,
 	    // conf->player.px ,
 	    // conf->ray.wallhitY ,
@@ -499,7 +502,10 @@ void    ft_draw_line(t_conf *conf)
         while (j < conf->wall.wallstripheight)
         {
             // printf("kahria1 = %d\n",j);
-            conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = GRAY;
+            // if(conf->ray.washitvert)
+                conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = AQUA;
+            // else
+            //     conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = GRAY;
             j++;
         }
         i++;
@@ -512,7 +518,7 @@ void    render3d(t_conf *conf)
     // _ang = conf->player.rotangle + (FOV/ 2);
     conf->wall.playerWallDist = (conf->player.width / 2) / tan(FOV / 2);
         // printf("wallDist = %f\n",conf->wall.playerWallDist);
-    conf->wall.wallstripheight = 1;
+    conf->wall.wallstripheight = 0.1;
     conf->wall.drawStartx = 0;
     
     while (conf->wall.drawStartx < conf->ray.num_rays)
@@ -538,10 +544,10 @@ int main_loop(t_conf *conf)
 {
     // printf("widht = %d , height = %d \n",conf->player.width,conf->player.height);
     ft_clear(conf);
-    mapp_print(conf);
     cast_rays(conf);
-    player_print(conf);
     render3d(conf);
+    mapp_print(conf);
+    player_print(conf);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);

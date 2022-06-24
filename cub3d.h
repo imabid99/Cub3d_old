@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 14:23:21 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/23 16:15:02 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define C1 0x7AE2B3
 # define WHITE 0xffffff
 # define BLACK 0x000000
+# define AQUA 0x00FFFF
 # define GRAY 0x808080
 # define ESC 53
 # define W 13
@@ -35,15 +36,15 @@
 #define TILE_SIZE 64
 // #define mapXX 16
 // #define mapYY 16
-#define WIDTH 1280
-#define HEIGHT 820
+#define WIDTH 1800
+#define HEIGHT 1300
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
 #define PI1 
-#define minimap 0.1
+#define minimap 0.25
 #define FOV (60 * (M_PI / 180))
 #define movesped 8
-#define rootsped 
+// #define rootsped 
 
 
 typedef struct	s_player {
