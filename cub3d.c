@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/26 19:47:58 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 20:09:27 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,18 +486,6 @@ void mapp_print(t_conf *conf)
         // printf("\n");
         i++;
     }
-    // i = 0;
-    // while(i < mapX )
-    // {
-    //     j = 0;
-    //     while(j < mapY)
-    //     {
-    //         if(map[i][j] == '0' || map[i][j] == 'S')
-    //             print_rectangl(conf,i,j,WHITE,1);
-    //         j++;
-    //     }
-    //     i++;
-    // }
 }
 // void    ft_draw_line(t_conf *conf)
 // {
