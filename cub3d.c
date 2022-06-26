@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/24 12:05:27 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 16:41:04 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,10 @@ char map[16][16] =
 double	normalize_ang(double angle)
 {
     angle = remainder(angle, (2 * M_PI));
+    // printf("remainder = %f\n",angle);
 	if (angle < 0)
 		angle = (2 * PI) + angle;
+    // printf("right angle = %f\n",angle);
 	return (angle);
 }
 
@@ -130,6 +132,7 @@ char    has_wall(t_conf *conf,double x,double y)
         if (x < 0 || x > (16 * 64)|| y < 0 || y > (16 * 64)) {
             return '1';
         }
+        // printf("%f\n",floor(80.0));
         int mapindexX = floor(x / TILE_SIZE);
         int mapindexY = floor(y / TILE_SIZE);
         return map[mapindexY][mapindexX];
@@ -181,6 +184,7 @@ void    rayfacing(t_conf *conf, double _ang)
 {
     conf->ray.facingdown = _ang > 0 && _ang < PI;
     conf->ray.facingup = !conf->ray.facingdown;
+    
     conf->ray.facingright = _ang < 0.5 * PI || _ang > 1.5 * PI;
     conf->ray.facingleft = !conf->ray.facingright;
     // printf("%d\n",conf->ray.facingright);  
@@ -215,10 +219,12 @@ double    hoz_intersection(t_conf *conf, double _ang)
     // while(conf->ray.nexthox >= 0 && conf->ray.nexthox <= conf->player.width && conf->ray.nexthoy >= 0
     //     && conf->ray.nexthoy <= conf->player.height)
     {
+        conf->ray.xhortocheck = conf->ray.nexthox;
+        conf->ray.yhortocheck = conf->ray.nexthoy - (conf->ray.facingup ? 1 : 0);
             // puts("hahaha");
             // printf("----%c----\n",has_wall(conf->ray.nexthox ,conf->ray.nexthoy - conf->ray.facingup ? 1 : 0));
             // printf("---- %d ----\n",conf->ray.nexthoy - conf->ray.facingup) ? 1 : 0);
-        if(has_wall(conf,conf->ray.nexthox ,conf->ray.nexthoy - (conf->ray.facingup ? 1 : 0)) == '1') 
+        if(has_wall(conf,conf->ray.xhortocheck ,conf->ray.yhortocheck) == '1') 
         {
             // printf("%c\n",has_wall(conf->ray.nexthox ,conf->ray.nexthoy - conf->ray.facingup ? 1 : 0));
             conf->ray.foundhorwallhit = 1;
@@ -267,12 +273,15 @@ double   ver_intersection(t_conf *conf, double _ang)
     // while(conf->ray.nextverx >= 0 && conf->ray.nextverx <= conf->player.width && conf->ray.nextvery >= 0
     //     && conf->ray.nextvery <= conf->player.height)
     {
+        conf->ray.xvertocheck = conf->ray.nextverx - (conf->ray.facingleft ? 1 : 0);
+        conf->ray.yvertocheck = conf->ray.nextvery;
+        
         // printf("%d\n",conf->player.width);
-        if(has_wall(conf,conf->ray.nextverx - (conf->ray.facingleft ? 1 : 0),conf->ray.nextvery) == '1') 
+        if(has_wall(conf,conf->ray.xvertocheck,conf->ray.yvertocheck) == '1') 
         {
-            conf->ray.foundverwallhit = 1;
             conf->ray.verwallhitx = conf->ray.nextverx;
             conf->ray.verwallhity = conf->ray.nextvery;
+            conf->ray.foundverwallhit = 1;
             break;
         }
         else{
@@ -285,7 +294,6 @@ double   ver_intersection(t_conf *conf, double _ang)
     //we return distance between two poins
     // printf(" disbtp = %f\n",disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
         return(disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
-        
     }
     // puts("here");
     return (DBL_MAX);
@@ -373,9 +381,9 @@ void    rotate(t_conf *conf)
 {
     conf->player.rotangle = normalize_ang(conf->player.rotangle);
     if (conf->player.to_forward == 1)
-        conf->player.rotangle -= conf->player.rotspeed;
+        conf->player.rotangle -= conf->player.turnspeed;
     if (conf->player.to_back == 1)
-        conf->player.rotangle += conf->player.rotspeed;
+        conf->player.rotangle += conf->player.turnspeed;
 }
 
 void cast_rays(t_conf *conf)

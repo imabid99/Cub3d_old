@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 16:15:02 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 16:08:07 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@
 #define HEIGHT 1300
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
-#define PI1 
+#define two_PI 6.28318530 
 #define minimap 0.25
-#define FOV (60 * (M_PI / 180))
+#define FOV (60 * (M_PI / 180)) 
 #define movesped 8
 // #define rootsped 
 
@@ -54,7 +54,7 @@ typedef struct	s_player {
 	double ag;
 	double py;
 	double rotangle;
-	double rotspeed;
+	double turnspeed;
 	int movespeed;
 	// int16_t width;
 	// int16_t height;
@@ -95,6 +95,10 @@ typedef struct ray
 	double nexthoy;
 	double nextverx;
 	double nextvery;
+	double xhortocheck;
+	double yhortocheck;
+	double xvertocheck;
+	double yvertocheck;
 	double foundhorwallhit;
 	double foundverwallhit;
 	double verdist;
