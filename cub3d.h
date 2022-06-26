@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/26 16:08:07 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 19:42:35 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 # define C1 0x7AE2B3
 # define WHITE 0xffffff
 # define BLACK 0x000000
-# define AQUA 0x00FFFF
+# define AQUA 0x00bda5
+# define AQUA1 0x007667
 # define GRAY 0x808080
+# define GRAY1 0x49494c
+# define GRAY2 0xa4a4a5
+
 # define ESC 53
 # define W 13
 # define VITESS 8
@@ -116,6 +120,9 @@ typedef struct s_wall
 	int drawStarty;
 	double *line_distance;
 	double corrwall;
+	int topwall;
+	int bottomwall;
+	int *hitver;
 
 } t_wall;
 typedef struct s_img

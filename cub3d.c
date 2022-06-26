@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/26 16:41:04 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 19:45:16 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void print_rectangl(t_conf *conf, int y, int x, int color, int line)
     int i;
     int j;
 
-    x *= (TILE_SIZE * minimap);
+    x *= (TILE_SIZE * minimap );
     y *= (TILE_SIZE * minimap);
     i = 0;
     while (i < (TILE_SIZE - line) * minimap)
@@ -25,7 +25,7 @@ void print_rectangl(t_conf *conf, int y, int x, int color, int line)
         j = 0;
         while (j < (TILE_SIZE - line) * minimap)
         {
-            conf->img.addr[(int)((y + j) ) * conf->player.width + (int)((x + i) )] = color;
+            conf->img.addr[(int)((y + j) ) * conf->player. width + (int)((x + i) )] = color;
             // conf->img.addr[(( (minimap * y) + (minimap * j)) * conf->player.width + (minimap * x) + (minimap * i))] = color;
             j++;
         }
@@ -394,6 +394,7 @@ void cast_rays(t_conf *conf)
     int i = 0;
     conf->wall.line_distance = malloc(sizeof(double) * conf->ray.num_rays);
     conf->ray.rayangle = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.hitver = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
     // while(i < 1)
     {
@@ -411,6 +412,7 @@ void cast_rays(t_conf *conf)
         _ang += FOV /conf->ray.num_rays;
         conf->ray.rayangle[i] = _ang;
         conf->wall.line_distance[i] = conf->ray.distance;
+        conf->wall.hitver[i] = conf->ray.washitvert; 
         i++;
     }
     // line(conf,conf->player.py ,
@@ -497,26 +499,46 @@ void mapp_print(t_conf *conf)
     //     i++;
     // }
 }
-void    ft_draw_line(t_conf *conf)
+// void    ft_draw_line(t_conf *conf)
+// {
+//     int x;
+//     int i = 0;
+//     int j ;
+//     // printf("x = %d, y = %d, conf->wall.drawStarty = %f, ")
+//     //  printf("startx = %d, starty = %d\n",conf->wall.drawStartx, conf->wall.drawStarty);
+//     while (i < 1)
+//     {
+//         j = conf->wall.drawStarty < 0 ? -conf->wall.drawStarty : 0;
+//         while (j < conf->wall.wallstripheight)
+//         {
+//             // printf("kahria1 = %d\n",j);
+//             // if(conf->ray.washitvert)
+//                 conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = AQUA;
+//             // else
+//             //     conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = GRAY;
+//             j++;
+//         }
+//         i++;
+//     }
+// }
+void    draw_wall(t_conf *conf)
 {
-    int x;
-    int i = 0;
-    int j ;
-    // printf("x = %d, y = %d, conf->wall.drawStarty = %f, ")
-    //  printf("startx = %d, starty = %d\n",conf->wall.drawStartx, conf->wall.drawStarty);
-    while (i < 1)
+    int x = 0;
+    
+     while( x < conf->wall.topwall)
     {
-        j = conf->wall.drawStarty < 0 ? -conf->wall.drawStarty : 0;
-        while (j < conf->wall.wallstripheight)
-        {
-            // printf("kahria1 = %d\n",j);
-            // if(conf->ray.washitvert)
-                conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = AQUA;
-            // else
-            //     conf->img.addr[((conf->wall.drawStarty + j) * conf->player.width + (conf->wall.drawStartx + i))] = GRAY;
-            j++;
-        }
-        i++;
+        conf->img.addr[(x * conf->player.width + conf->wall.drawStartx)] = GRAY1;
+        x++;
+    }
+     while( conf->wall.topwall < conf->wall.bottomwall)
+    {
+        conf->img.addr[((conf->wall.topwall) * conf->player.width + conf->wall.drawStartx)] = conf->wall.hitver[conf->wall.drawStartx] ? AQUA : AQUA1;
+        conf->wall.topwall++;
+    }
+     while( conf->wall.bottomwall < conf->player.height)
+    {
+        conf->img.addr[((conf->wall.bottomwall) * conf->player.width + conf->wall.drawStartx)] = GRAY2;
+        conf->wall.bottomwall++;
     }
 }
 void    render3d(t_conf *conf)
@@ -526,7 +548,7 @@ void    render3d(t_conf *conf)
     // _ang = conf->player.rotangle + (FOV/ 2);
     conf->wall.playerWallDist = (conf->player.width / 2) / tan(FOV / 2);
         // printf("wallDist = %f\n",conf->wall.playerWallDist);
-    conf->wall.wallstripheight = 0.1;
+    conf->wall.wallstripheight = 1;
     conf->wall.drawStartx = 0;
     
     while (conf->wall.drawStartx < conf->ray.num_rays)
@@ -541,9 +563,32 @@ void    render3d(t_conf *conf)
         conf->wall.wallstripheight = (TILE_SIZE / conf->wall.corrwall) * conf->wall.playerWallDist;
         conf->wall.wallstripheight = conf->wall.wallstripheight >= conf->player.height ? conf->player.height : conf->wall.wallstripheight;
         // printf("kahria1 = %f, kharia2 = %f\n",conf->wall.wallstripheight,conf->wall.playerWallDist);
-        conf->wall.drawStarty = (conf->player.height / 2) - (conf->wall.wallstripheight / 2);
+        // conf->wall.drawStarty = (conf->player.height / 2) - (conf->wall.wallstripheight / 2);
+        // conf->wall.drawStarty = conf->wall.drawStarty < 0 ? 0 : conf->wall.drawStarty;
+        conf->wall.topwall = (conf->player.height / 2) - (conf->wall.wallstripheight / 2);
+        conf->wall.topwall = conf->wall.topwall < 0 ? 0 : conf->wall.topwall;
+        conf->wall.bottomwall = (conf->player.height / 2) + (conf->wall.wallstripheight / 2);
+        conf->wall.bottomwall = conf->wall.bottomwall > conf->player.height ? 0 : conf->wall.bottomwall;
         
-        ft_draw_line(conf);
+        // ft_draw_line(conf);
+        draw_wall(conf);
+        // int x = 0;
+        
+        //  while( x < conf->wall.topwall)
+        // {
+        //     conf->img.addr[(x * conf->player.width + conf->wall.drawStartx)] = GRAY1;
+        //     x++;
+        // }
+        //  while( conf->wall.topwall < conf->wall.bottomwall)
+        // {
+        //     conf->img.addr[((conf->wall.topwall) * conf->player.width + conf->wall.drawStartx)] = conf->wall.hitver[conf->wall.drawStartx] ? AQUA : AQUA1;
+        //     conf->wall.topwall++;
+        // }
+        //  while( conf->wall.bottomwall < conf->player.height)
+        // {
+        //     conf->img.addr[((conf->wall.bottomwall) * conf->player.width + conf->wall.drawStartx)] = GRAY2;
+        //     conf->wall.bottomwall++;
+        // }
         // _ang -= FOV/ conf->ray.num_rays;
         conf->wall.drawStartx++;
     }
