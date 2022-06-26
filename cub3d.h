@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/26 19:42:35 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 20:02:00 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # define GRAY 0x808080
 # define GRAY1 0x49494c
 # define GRAY2 0xa4a4a5
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
+
 
 # define ESC 53
 # define W 13

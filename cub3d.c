@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/26 19:45:16 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/26 19:47:58 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -572,24 +572,6 @@ void    render3d(t_conf *conf)
         
         // ft_draw_line(conf);
         draw_wall(conf);
-        // int x = 0;
-        
-        //  while( x < conf->wall.topwall)
-        // {
-        //     conf->img.addr[(x * conf->player.width + conf->wall.drawStartx)] = GRAY1;
-        //     x++;
-        // }
-        //  while( conf->wall.topwall < conf->wall.bottomwall)
-        // {
-        //     conf->img.addr[((conf->wall.topwall) * conf->player.width + conf->wall.drawStartx)] = conf->wall.hitver[conf->wall.drawStartx] ? AQUA : AQUA1;
-        //     conf->wall.topwall++;
-        // }
-        //  while( conf->wall.bottomwall < conf->player.height)
-        // {
-        //     conf->img.addr[((conf->wall.bottomwall) * conf->player.width + conf->wall.drawStartx)] = GRAY2;
-        //     conf->wall.bottomwall++;
-        // }
-        // _ang -= FOV/ conf->ray.num_rays;
         conf->wall.drawStartx++;
     }
 }
