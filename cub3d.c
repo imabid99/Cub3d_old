@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/27 16:27:27 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/28 14:51:54 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,6 +393,8 @@ void cast_rays(t_conf *conf)
     _ang = conf->player.rotangle - (FOV / 2);
     int i = 0;
     conf->wall.line_distance = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.wX = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.wY = malloc(sizeof(double) * conf->ray.num_rays);
     conf->ray.rayangle = malloc(sizeof(double) * conf->ray.num_rays);
     conf->wall.hitver = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
@@ -412,6 +414,8 @@ void cast_rays(t_conf *conf)
         _ang += FOV /conf->ray.num_rays;
         conf->ray.rayangle[i] = _ang;
         conf->wall.line_distance[i] = conf->ray.distance;
+        conf->wall.wX[i] = conf->ray.wallhitX;
+        conf->wall.wY[i] = conf->ray.wallhitY;
         conf->wall.hitver[i] = conf->ray.washitvert; 
         i++;
     }
@@ -509,6 +513,8 @@ void mapp_print(t_conf *conf)
 //         i++;
 //     }
 // }
+
+
 void    draw_wall(t_conf *conf)
 {
     int x = 0;
@@ -518,10 +524,42 @@ void    draw_wall(t_conf *conf)
         conf->img.addr[(x * conf->player.width + conf->wall.drawStartx)] = GRAY1;
         x++;
     }
-     while( conf->wall.topwall < conf->wall.bottomwall)
+    //  while( conf->wall.topwall < conf->wall.bottomwall)
+    // {
+    //     conf->img.addr[((conf->wall.topwall) * conf->player.width + conf->wall.drawStartx)] = conf->wall.hitver[conf->wall.drawStartx] ? AQUA : AQUA1;
+    //     conf->wall.topwall++;
+    // }
+    	int y;
+	// static float x;
+	int texoffsetY;
+	int disfromtop;
+	int texoffsetX;
+		// printf("x = %f y =%f\n", conf->wall.wY[conf->wall.drawStartx], conf->wall.wX[conf->wall.drawStartx]);
+	// puts("here");
+	if(conf->wall.hitver[conf->wall.drawStartx])
+	{
+		texoffsetX = (int)conf->wall.wY[conf->wall.drawStartx] % TILE_SIZE;
+	}
+	else
+	{
+	// puts("here");
+		texoffsetX = (int)conf->wall.wX[conf->wall.drawStartx] % TILE_SIZE;
+	}
+	// exit(0);
+		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
+	int color;
+	y = conf->wall.topwall;
+    while ( y < conf->wall.bottomwall)
     {
-        conf->img.addr[((conf->wall.topwall) * conf->player.width + conf->wall.drawStartx)] = conf->wall.hitver[conf->wall.drawStartx] ? AQUA : AQUA1;
-        conf->wall.topwall++;
+		// if (x > 64)
+		// 	x = 0;
+		// disfromtop = y + (conf->wall.wallstripheight / 2) - (conf->player.width / 2);
+		// texoffsetY = disfromtop * (TEX_HEIGHT / conf->wall.wallstripheight);
+		texoffsetY = (y - conf->wall.topwall) * (TEX_HEIGHT / conf->wall.wallstripheight);
+		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
+		color = conf->elem[0].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
+        conf->img.addr[(y * conf->player.width  + conf->wall.drawStartx)] = color;
+        y++;
     }
      while( conf->wall.bottomwall < conf->player.height)
     {
@@ -589,9 +627,9 @@ void cub3d_hook(t_conf *conf)
 int main(void)
 {
     t_conf conf;
-    init_all(&conf);
     win_init(&conf);
     img_init(&conf);
+    init_all(&conf);
     cub3d_hook(&conf);
     // mlx_loop(conf.mlx);
     return 0;

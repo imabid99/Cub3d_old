@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/28 09:34:37 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/28 14:34:57 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct ray
 	double hordist;
 	double wallhitX;
 	double wallhitY;
+
 	double washitvert;
 } t_ray;
 typedef struct s_wall
@@ -121,24 +122,46 @@ typedef struct s_wall
 	int topwall;
 	int bottomwall;
 	int *hitver;
+	double *wX;
+	double *wY;
 
 } t_wall;
 typedef struct s_img
 {
 	void *img;
 	int	*addr;
-
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }	t_img;
+typedef struct s_texture
+{
+	void	*img;   
+	int		*addr;
+	int 	bits_per_pixel;
+	int		size_line;
+	int		endian;
+	int		width;
+	int		height;
+	float		x;
+	float		y;
+}	t_texture;
 
+typedef struct s_elements
+{
+	char		*identifier;
+	char		*path;
+	t_texture	texture;
+}	t_elements;
 typedef struct s_conf {
 	void	*mlx;
 	void	*mlx_win; 
 	char	**map;
 	int		count;
+	// void	*img1;
+	// int		*addr;
 	t_player	player;
+	t_elements	*elem;
 	t_img	img;
 	t_ray	ray;
 	t_wall wall;
@@ -162,4 +185,5 @@ int    iam_wall(t_conf *conf);
 void    rotate(t_conf *conf);
 void print_rectangl1(t_conf *conf, int y, int x, int color, int line);
 void    init_all2(t_conf *conf);
+t_texture	load_img(char *path, void *mlx);
 #endif
