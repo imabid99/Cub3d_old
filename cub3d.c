@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/28 14:51:54 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/29 10:46:57 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char map[16][16] =
         // {1,0,0,0,0,0,0,1,1},
         // {1,1,1,1,1,1,1,1,1},
         {'1','1','1','1','1','1','1','1'},
-        {'1','0','0','0','0','0','0','1'},
+        {'1','0','0','S','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','1','1','0','0','0','0','1'},
         {'1','0','0','0','0','0','1','1'},
@@ -107,7 +107,7 @@ char map[16][16] =
         {'1','0','1','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1','1','1','1','1','1','1','1','1'},
-        {'1','0','1','0','0','0','0','0','S','1','0','0','0','0','0','1'},
+        {'1','0','1','0','0','0','0','0','0','1','0','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','0','0','0','1','1','1','1','0','1'},
         {'1','0','1','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
@@ -298,11 +298,15 @@ double   ver_intersection(t_conf *conf, double _ang)
     // puts("here");
     return (DBL_MAX);
 }
-void    check_intersection(t_conf *conf, double _ang)
+void    check_intersection(t_conf *conf, double _ang,int i)
 {
     init_all2(conf);
     _ang = normalize_ang(_ang);
     rayfacing(conf, _ang);
+    conf->wall.faceleft[i] = conf->ray.facingleft;
+    conf->wall.faceright[i] = conf->ray.facingright;
+    conf->wall.faceup[i] = conf->ray.facingup;
+    conf->wall.facedown[i] = conf->ray.facingdown;
     conf->ray.hordist = hoz_intersection(conf, _ang);
     // hoz_intersection(conf);
     conf->ray.verdist = ver_intersection(conf, _ang);
@@ -397,12 +401,20 @@ void cast_rays(t_conf *conf)
     conf->wall.wY = malloc(sizeof(double) * conf->ray.num_rays);
     conf->ray.rayangle = malloc(sizeof(double) * conf->ray.num_rays);
     conf->wall.hitver = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.faceup = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.facedown = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.faceright = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.faceleft = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
     // while(i < 1)
     {
         // puts("here");
         _ang = normalize_ang(_ang);
-        check_intersection(conf, _ang);
+        // conf->wall.faceleft[i] = conf->ray.facingleft;
+        // conf->wall.faceright[i] = conf->ray.facingright;
+        // conf->wall.faceup[i] = conf->ray.facingup;
+        // conf->wall.facedown[i] = conf->ray.facingdown;
+        check_intersection(conf, _ang,i);
         // line(conf,conf->player.py * minimap,
 	    // conf->player.px * minimap,
 	    // conf->ray.wallhitY * minimap,
@@ -417,6 +429,22 @@ void cast_rays(t_conf *conf)
         conf->wall.wX[i] = conf->ray.wallhitX;
         conf->wall.wY[i] = conf->ray.wallhitY;
         conf->wall.hitver[i] = conf->ray.washitvert; 
+        // conf->wall.faceleft[i] = conf->ray.facingleft;
+        // conf->wall.faceright[i] = conf->ray.facingright;
+        // conf->wall.faceup[i] = conf->ray.facingup;
+        // conf->wall.facedown[i] = conf->ray.facingdown;
+        // conf->wall.face[i] = conf->ray.washitvert; 
+        // if(conf->ray.facingup)
+        //     conf->wall.a = 0;
+        // if(conf->ray.facingdown)
+        //     conf->wall.a = 1;
+        // if(conf->ray.facingleft)
+        //     conf->wall.a = 2;
+        // if(conf->ray.facing)
+        //     conf->wall.a = 0;
+        // if(conf->ray.facingup)
+        //     conf->wall.a = 0;
+        
         i++;
     }
     // line(conf,conf->player.py ,
@@ -514,7 +542,29 @@ void mapp_print(t_conf *conf)
 //     }
 // }
 
-
+void    texture_facing(t_conf *conf)
+{
+    // rayfacing(conf,conf->ray.rayangle[conf->wall.drawStartx]);
+    // puts("here");
+    // int a = (conf->ray.rayangle[conf->wall.drawStartx] > 0 &&  conf->ray.rayangle[conf->wall.drawStartx] < PI);
+    if(!conf->wall.hitver[conf->wall.drawStartx] && conf->wall.faceup[conf->wall.drawStartx])
+        conf->txtnbr = 0;
+    if(!conf->wall.hitver[conf->wall.drawStartx] && conf->wall.facedown[conf->wall.drawStartx] )
+        conf->txtnbr = 1;
+    if(conf->wall.hitver[conf->wall.drawStartx] && conf->wall.faceleft[conf->wall.drawStartx])
+        conf->txtnbr = 2;
+    // printf("%d\n",conf->wall.drawStartx);
+    if(conf->wall.hitver[conf->wall.drawStartx] && conf->wall.faceright[conf->wall.drawStartx])
+        conf->txtnbr = 3;
+    //  if (!recup->p.washitvertical && recup->p.facingup)
+	// 	recup->t.tindex = 0;
+	// if (!recup->p.washitvertical && !recup->p.facingup)
+	// 	recup->t.tindex = 1;
+	// if (recup->p.washitvertical && recup->p.facingleft)
+	// 	recup->t.tindex = 2;
+	// if (recup->p.washitvertical && !recup->p.facingleft)
+	// 	recup->t.tindex = 3;
+}
 void    draw_wall(t_conf *conf)
 {
     int x = 0;
@@ -549,6 +599,7 @@ void    draw_wall(t_conf *conf)
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
 	int color;
 	y = conf->wall.topwall;
+    texture_facing(conf);
     while ( y < conf->wall.bottomwall)
     {
 		// if (x > 64)
@@ -557,7 +608,7 @@ void    draw_wall(t_conf *conf)
 		// texoffsetY = disfromtop * (TEX_HEIGHT / conf->wall.wallstripheight);
 		texoffsetY = (y - conf->wall.topwall) * (TEX_HEIGHT / conf->wall.wallstripheight);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
-		color = conf->elem[0].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
+		color = conf->elem[conf->txtnbr].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
         conf->img.addr[(y * conf->player.width  + conf->wall.drawStartx)] = color;
         y++;
     }

@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/28 14:34:57 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/28 17:14:49 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define AQUA 0x00bda5
 # define AQUA1 0x007667
 # define GRAY 0x808080
-# define GRAY1 0x49494c
+# define GRAY1 0x302D2C
 # define GRAY2 0xa4a4a5
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
@@ -124,6 +124,11 @@ typedef struct s_wall
 	int *hitver;
 	double *wX;
 	double *wY;
+	double *faceup;
+	double *facedown;
+	double *faceright;
+	double *faceleft;
+	int a;
 
 } t_wall;
 typedef struct s_img
@@ -158,6 +163,7 @@ typedef struct s_conf {
 	void	*mlx_win; 
 	char	**map;
 	int		count;
+		int txtnbr;
 	// void	*img1;
 	// int		*addr;
 	t_player	player;

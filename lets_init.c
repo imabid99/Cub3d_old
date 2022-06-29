@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/28 14:51:37 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/29 10:47:57 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void    init_all(t_conf *conf)
     path[0] = "asset/east.xpm";
     path[1] = "asset/north.xpm";
     path[2] = "asset/south.xpm";
-    path[2] = "asset/west.xpm";
+    path[3] = "asset/west.xpm";
 
 	i = -1;
     conf->elem = malloc(sizeof(t_elements) * 4);
-	while (++i < 3)
+	while (++i < 4)
     {
 		conf->elem[i].texture = load_img(path[i], conf->mlx);
         
@@ -85,6 +85,8 @@ void    init_all(t_conf *conf)
     conf->ray.num_rays = WIDTH; 
     conf->player.width = WIDTH;
     conf->player.height = HEIGHT;
+    conf->txtnbr = 0;
+    // texture_facing(conf);
     
     
 }
