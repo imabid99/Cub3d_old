@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/29 10:47:57 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/30 15:42:25 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void    init_all(t_conf *conf)
     conf->player.py = conf->player.dyy * 64 + 64 / 2;
     conf->player.px = conf->player.dxx * 64 + 64 / 2 ;
     conf->player.rotangle = PI / 2; 
-    conf->player.movespeed = 4;
-    conf->player.turnspeed = 2 * (PI / 180);
+    conf->player.movespeed = 2;
+    conf->player.turnspeed = 1 * (PI / 180);
     conf->player.tdirection = 0;
     conf->player.walkdirection = 0;
     conf->player.to_a = 0;
