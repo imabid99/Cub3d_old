@@ -6,12 +6,13 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/29 11:25:10 by imabid           ###   ########.fr       */
+/*   Updated: 2022/06/30 14:18:48 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <float.h>
+
 void print_rectangl(t_conf *conf, int y, int x, int color, int line)
 {
     int i;
@@ -96,7 +97,7 @@ char map[16][16] =
         // {1,0,0,0,0,0,0,1,1},
         // {1,1,1,1,1,1,1,1,1},
         {'1','1','1','1','1','1','1','1'},
-        {'1','0','0','S','0','0','0','1'},
+        {'1','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','1','1','0','0','0','0','1'},
         {'1','0','0','0','0','0','1','1'},
@@ -109,7 +110,7 @@ char map[16][16] =
         {'1','0','1','0','0','0','0','1','1','1','1','1','1','1','1','1'},
         {'1','0','1','0','0','0','0','0','0','1','0','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','0','0','0','1','1','1','1','0','1'},
-        {'1','0','1','0','0','0','0','0','0','0','0','0','0','0','0','1'},
+        {'1','S','1','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
 
@@ -598,24 +599,29 @@ void    draw_wall(t_conf *conf)
 	// exit(0);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
 	int color;
-	y = conf->wall.topwall;
+    // y = conf->wall.topwall  ;
+	y = conf->wall.topwall < 0 ? -conf->wall.topwall : 0;
     texture_facing(conf);
-    while ( y < conf->wall.bottomwall)
+    while (y < conf->wall.bottomwall)
     {
 		// if (x > 64)
 		// 	x = 0;
 		// disfromtop = y + (conf->wall.wallstripheight / 2) - (conf->player.width / 2);
 		// texoffsetY = disfromtop * (TEX_HEIGHT / conf->wall.wallstripheight);
-		texoffsetY = (y - conf->wall.topwall) * (TEX_HEIGHT / conf->wall.wallstripheight);
+        // puts("here");
+        // printf("00conf->wall.top=%d, 00conf->wall.bottomwall= %d\n",conf->wall.topwall,conf->wall.bottomwall);
+		texoffsetY = (y) * (TEX_HEIGHT / conf->wall.wallstripheight);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
 		color = conf->elem[conf->txtnbr].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
-        conf->img.addr[(y * conf->player.width  + conf->wall.drawStartx)] = color;
+		// color = C1;
+        conf->img.addr[((y + conf->wall.topwall) * conf->player.width  + (conf->wall.drawStartx + 1))] = color;
         y++;
     }
-     while( conf->wall.bottomwall < conf->player.height)
+    int j = conf->wall.bottomwall;
+     while( j < conf->player.height)
     {
-        conf->img.addr[((conf->wall.bottomwall) * conf->player.width + conf->wall.drawStartx)] = GRAY2;
-        conf->wall.bottomwall++;
+        conf->img.addr[(j * conf->player.width + conf->wall.drawStartx)] = GRAY2;
+        j++;
     }
 }
 void    render3d(t_conf *conf)
@@ -638,14 +644,16 @@ void    render3d(t_conf *conf)
         conf->wall.corrwall = conf->wall.line_distance[conf->wall.drawStartx] * cos(conf->ray.rayangle[conf->wall.drawStartx] - conf->player.rotangle);
         // printf("%f\n",conf->wall.corrwall);
         conf->wall.wallstripheight = (TILE_SIZE / conf->wall.corrwall) * conf->wall.playerWallDist;
-        conf->wall.wallstripheight = conf->wall.wallstripheight >= conf->player.height ? conf->player.height : conf->wall.wallstripheight;
+        // conf->wall.wallstripheight = conf->wall.wallstripheight >= conf->player.height ? conf->player.height : conf->wall.wallstripheight;
         // printf("kahria1 = %f, kharia2 = %f\n",conf->wall.wallstripheight,conf->wall.playerWallDist);
+        // conf->wall.wallstripheight = conf->wall.wallstripheight >= HEIGHT ? HEIGHT : conf->wall.wallstripheight;
+        // printf("%f\n", conf->wall.wallstripheight);
         // conf->wall.drawStarty = (conf->player.height / 2) - (conf->wall.wallstripheight / 2);
         // conf->wall.drawStarty = conf->wall.drawStarty < 0 ? 0 : conf->wall.drawStarty;
         conf->wall.topwall = (conf->player.height / 2) - (conf->wall.wallstripheight / 2);
-        conf->wall.topwall = conf->wall.topwall < 0 ? 0 : conf->wall.topwall;
+        // conf->wall.topwall = conf->wall.topwall < 0 ? 0 : conf->wall.topwall;
         conf->wall.bottomwall = (conf->player.height / 2) + (conf->wall.wallstripheight / 2);
-        conf->wall.bottomwall = conf->wall.bottomwall > conf->player.height ? 0 : conf->wall.bottomwall;
+        // conf->wall.bottomwall = conf->wall.bottomwall > conf->player.height ? 0 : conf->wall.bottomwall;
         
         // ft_draw_line(conf);
         draw_wall(conf);
