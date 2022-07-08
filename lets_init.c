@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/30 15:42:25 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/08 16:31:14 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,8 @@ void    win_init(t_conf *conf)
 
 void    img_init(t_conf *conf)
 {
-    // puts("here");
     conf->img.img = mlx_new_image(conf->mlx,WIDTH, HEIGHT);
     conf->img.addr = (int *)mlx_get_data_addr(conf->img.img, &conf->img.bits_per_pixel, &conf->img.line_length,&conf->img.endian);
-    // conf->img1 = mlx_xpm_file_to_image(conf->mlx, "./asset/east.xpm", &conf->img.bits_per_pixel, &conf->img.endian);
-    // if (!conf->img1)
-    //     exit(0);
-    // conf->addr = (int *)mlx_get_data_addr(conf->img1, &conf->img.bits_per_pixel, &conf->img.line_length,&conf->img.endian);
-    // if (!conf->addr)
-    //     exit(0);
 }
 
 
@@ -40,7 +33,6 @@ t_texture	load_img(char *path, void *mlx)
 	temp.y = 0;
 	temp.width = 64;
 	temp.height = 64;
-    // puts("here");
 	temp.img = mlx_xpm_file_to_image(mlx, path, &temp.width, &temp.height);
 	if (!temp.img)
 		exit(printf("mlx Error : mlx_xpm_file_to_image !\n"));
@@ -72,7 +64,7 @@ void    init_all(t_conf *conf)
     conf->player.py = conf->player.dyy * 64 + 64 / 2;
     conf->player.px = conf->player.dxx * 64 + 64 / 2 ;
     conf->player.rotangle = PI / 2; 
-    conf->player.movespeed = 2;
+    conf->player.movespeed = 3;
     conf->player.turnspeed = 1 * (PI / 180);
     conf->player.tdirection = 0;
     conf->player.walkdirection = 0;
@@ -85,8 +77,5 @@ void    init_all(t_conf *conf)
     conf->ray.num_rays = WIDTH; 
     conf->player.width = WIDTH;
     conf->player.height = HEIGHT;
-    conf->txtnbr = 0;
-    // texture_facing(conf);
-    
-    
+    conf->txtnbr = 0;   
 }

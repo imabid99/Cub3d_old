@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/30 14:19:15 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/04 17:46:47 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@
 #define rotationAngle = ang / 2;
 #define DR (1 * (M_PI / 180))
 #define TILE_SIZE 64
-#define WIDTH 1800
-#define HEIGHT 1300
+#define WIDTH 400
+#define HEIGHT 400
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
 #define two_PI 6.28318530 
-#define minimap 0.25
+#define minimap 0.1
 #define FOV (60 * (M_PI / 180)) 
 #define movesped 8
 

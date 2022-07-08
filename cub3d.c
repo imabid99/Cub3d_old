@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/30 15:44:30 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/08 16:31:29 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char map[16][16] =
         {'1','0','1','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1','1','1','1','1','1','1','1','1'},
         {'1','0','1','0','0','0','0','0','0','1','0','0','0','0','0','1'},
-        {'1','0','1','0','0','0','0','0','0','0','1','1','1','1','0','1'},
+        {'1','0','1','0','0','0','0','0','0','1','1','1','1','1','0','1'},
         {'1','0','1','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
@@ -514,6 +514,8 @@ void mapp_print(t_conf *conf)
                 print_rectangl(conf,i, j,GRAY,0);
             else if(map[i][j] == '0' || map[i][j] == 'S')
                 print_rectangl(conf,i, j,WHITE,0);
+            else if(map[i][j] == '2')
+                print_rectangl(conf,i, j,C1,0);
             j++;
         }
         // printf("\n");
@@ -575,11 +577,6 @@ void    draw_wall(t_conf *conf)
         conf->img.addr[(x * conf->player.width + conf->wall.drawStartx)] = AQUA;
         x++;
     }
-    //  while( conf->wall.topwall < conf->wall.bottomwall)
-    // {
-    //     conf->img.addr[((conf->wall.topwall) * conf->player.width + conf->wall.drawStartx)] = conf->wall.hitver[conf->wall.drawStartx] ? AQUA : AQUA1;
-    //     conf->wall.topwall++;
-    // }
     	int y;
 	// static float x;
 	int texoffsetY;
@@ -662,7 +659,6 @@ void    render3d(t_conf *conf)
 }
 int main_loop(t_conf *conf)
 {
-    // printf("widht = %d , height = %d \n",conf->player.width,conf->player.height);
     ft_clear(conf);
     cast_rays(conf);
     render3d(conf);
@@ -690,6 +686,5 @@ int main(void)
     img_init(&conf);
     init_all(&conf);
     cub3d_hook(&conf);
-    // mlx_loop(conf.mlx);
     return 0;
 }
