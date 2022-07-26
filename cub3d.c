@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/08 16:31:29 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/26 11:39:12 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void print_rectangl(t_conf *conf, int y, int x, int color, int line)
     int i;
     int j;
 
-    x *= (TILE_SIZE * minimap );
+    x *= (TILE_SIZE * minimap);
     y *= (TILE_SIZE * minimap);
     i = 0;
     while (i < (TILE_SIZE - line) * minimap)
@@ -512,8 +512,8 @@ void mapp_print(t_conf *conf)
             // printf("%c",map[i][j]);
             if(map[i][j] == '1')
                 print_rectangl(conf,i, j,GRAY,0);
-            else if(map[i][j] == '0' || map[i][j] == 'S')
-                print_rectangl(conf,i, j,WHITE,0);
+            // else if(map[i][j] == '0' || map[i][j] == 'S')
+            //     print_rectangl(conf,i, j,WHITE,0);
             else if(map[i][j] == '2')
                 print_rectangl(conf,i, j,C1,0);
             j++;
@@ -547,26 +547,14 @@ void mapp_print(t_conf *conf)
 
 void    texture_facing(t_conf *conf)
 {
-    // rayfacing(conf,conf->ray.rayangle[conf->wall.drawStartx]);
-    // puts("here");
-    // int a = (conf->ray.rayangle[conf->wall.drawStartx] > 0 &&  conf->ray.rayangle[conf->wall.drawStartx] < PI);
     if(!conf->wall.hitver[conf->wall.drawStartx] && conf->wall.faceup[conf->wall.drawStartx])
         conf->txtnbr = 0;
     if(!conf->wall.hitver[conf->wall.drawStartx] && conf->wall.facedown[conf->wall.drawStartx] )
         conf->txtnbr = 1;
     if(conf->wall.hitver[conf->wall.drawStartx] && conf->wall.faceleft[conf->wall.drawStartx])
         conf->txtnbr = 2;
-    // printf("%d\n",conf->wall.drawStartx);
     if(conf->wall.hitver[conf->wall.drawStartx] && conf->wall.faceright[conf->wall.drawStartx])
         conf->txtnbr = 3;
-    //  if (!recup->p.washitvertical && recup->p.facingup)
-	// 	recup->t.tindex = 0;
-	// if (!recup->p.washitvertical && !recup->p.facingup)
-	// 	recup->t.tindex = 1;
-	// if (recup->p.washitvertical && recup->p.facingleft)
-	// 	recup->t.tindex = 2;
-	// if (recup->p.washitvertical && !recup->p.facingleft)
-	// 	recup->t.tindex = 3;
 }
 void    draw_wall(t_conf *conf)
 {
@@ -628,7 +616,7 @@ void    render3d(t_conf *conf)
     // _ang = conf->player.rotangle + (FOV/ 2);
     conf->wall.playerWallDist = (conf->player.width / 2) / tan(FOV / 2);
         // printf("wallDist = %f\n",conf->wall.playerWallDist);
-    conf->wall.wallstripheight = 1;
+    conf->wall.wallstripheight = 0;
     conf->wall.drawStartx = 0;
     
     while (conf->wall.drawStartx < conf->ray.num_rays)
