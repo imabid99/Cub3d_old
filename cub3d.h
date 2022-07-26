@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/26 11:11:09 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:39:51 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_player {
 	int 	to_w;
 	int 	to_forward;
 	int 	to_back;
+	int		to_space;
 	double fov;
 	int width;
 	int height;
@@ -107,7 +108,9 @@ typedef struct ray
 	double hordist;
 	double wallhitX;
 	double wallhitY;
-
+	int  verwallcontent;
+	int  horwallcontent;
+	int wallcon;
 	double washitvert;
 } t_ray;
 typedef struct s_wall
@@ -128,6 +131,7 @@ typedef struct s_wall
 	double *facedown;
 	double *faceright;
 	double *faceleft;
+	int *con;
 	int a;
 
 } t_wall;

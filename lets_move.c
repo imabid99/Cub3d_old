@@ -6,12 +6,13 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/06/23 14:45:38 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/26 14:26:26 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+extern char map[16][16];
 // void    iam_wall(t_conf *conf)
 // {
 //     float x;
@@ -29,6 +30,8 @@ int player_move(int key,void *param)
 {
     t_conf *conf;
     conf = (t_conf *)param;
+    float pdx = -sin(conf->player.rotangle - PI / 2);
+    float pdy = cos(conf->player.rotangle - PI / 2);
     // puts("here");
     // printf("%d\n",key);
     if(key == ESC)
@@ -46,6 +49,23 @@ int player_move(int key,void *param)
         conf->player.to_forward = 1;
     else if(key == 124)
         conf->player.to_back = 1;
+    else if(key == 49)
+    {
+        if(conf->ray.facingdown)
+        {
+            if (map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] == '2')
+                map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '0';
+        }
+        else if(conf->ray.facingup)
+        {
+            if (map[(int)((conf->player.py - 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] == '2')
+                map[(int)((conf->player.py - 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '0';
+        }
+        
+
+    }
+    // printf("key = %d",key);
+    // else if (key == )
     // rotate(conf);
     // move_to(conf);
         // conf->player.rotangle -= conf->player.rotspeed;
@@ -75,6 +95,8 @@ int keyrealeased(int key,t_conf *conf)
         conf->player.to_back = 0;
         // puts("hiahia");
     }
+    // else if(key == 49)
+    //     conf->player.to_space = 0;
     return 1;
 }
 

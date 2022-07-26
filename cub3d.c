@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/26 11:39:12 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:01:59 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ char map[16][16] =
         {'1','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','1','1','0','0','0','0','1'},
-        {'1','0','0','0','0','0','1','1'},
+        {'1','0','0','0','0','0','0','1'},
         {'1','0','1','0','S','0','0','1'},
-        {'1','0','1','0','0','0','1','1'},
+        {'1','0','2','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1'},
-        {'1','0','1','0','0','0','0','1'},
+        {'1','0','2','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1','1','1','1','1','1','1','1','1'},
         {'1','0','1','0','0','0','0','0','0','1','0','0','0','0','0','1'},
-        {'1','0','1','0','0','0','0','0','0','1','1','1','1','1','0','1'},
+        {'1','0','2','0','0','0','0','0','0','1','1','1','1','1','0','1'},
         {'1','0','1','0','0','0','0','0','0','0','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
@@ -144,7 +144,8 @@ void move_to(t_conf *conf)
     float pdy = cos(conf->player.rotangle - PI / 2);
     if (conf->player.to_a == 1)
     {
-        if(map[(int)((conf->player.py - (cos(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)] != '1')
+        if(map[(int)((conf->player.py - (cos(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)] != '1'
+            && map[(int)((conf->player.py - (cos(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)] != '2')
         {
             conf->player.px += sin(conf->player.rotangle) * conf->player.movespeed;
             conf->player.py -= cos(conf->player.rotangle) * conf->player.movespeed;   
@@ -152,7 +153,8 @@ void move_to(t_conf *conf)
     }
     if (conf->player.to_d == 1)
     {
-        if(map[(int)((conf->player.py + (cos(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - (sin(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)] != '1')
+        if(map[(int)((conf->player.py + (cos(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - (sin(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)] != '1'
+        && map[(int)((conf->player.py + (cos(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - (sin(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)] != '2')
         {
         conf->player.px -= sin(conf->player.rotangle) * conf->player.movespeed;
         conf->player.py += cos(conf->player.rotangle) * conf->player.movespeed;  
@@ -160,8 +162,9 @@ void move_to(t_conf *conf)
     }
     if (conf->player.to_w == 1)
     {
-        if (map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1')
+        if (map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1' && map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '2'  )
         {
+            
             conf->player.px += pdx * conf->player.movespeed;
             conf->player.py += pdy * conf->player.movespeed;
         }
@@ -173,13 +176,22 @@ void move_to(t_conf *conf)
     }
     if (conf->player.to_s == 1)
     {
-        if(map[(int)((conf->player.py - (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '1')
+        if(map[(int)((conf->player.py - (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '1'
+        && map[(int)((conf->player.py - (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '2')
         {
         conf->player.px += sin(conf->player.rotangle - PI / 2) * conf->player.movespeed;
         conf->player.py -= cos(conf->player.rotangle - PI / 2) * conf->player.movespeed;
             
         } 
     }
+    // if (conf->player.to_space == 1)
+    // {
+    //     if (map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1')
+    //     {
+    //         map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '0';
+    //         conf->player.to_space = 0;
+    //     }
+    // }
 }
 void    rayfacing(t_conf *conf, double _ang)
 {
@@ -225,12 +237,14 @@ double    hoz_intersection(t_conf *conf, double _ang)
             // puts("hahaha");
             // printf("----%c----\n",has_wall(conf->ray.nexthox ,conf->ray.nexthoy - conf->ray.facingup ? 1 : 0));
             // printf("---- %d ----\n",conf->ray.nexthoy - conf->ray.facingup) ? 1 : 0);
-        if(has_wall(conf,conf->ray.xhortocheck ,conf->ray.yhortocheck) == '1') 
+        if(has_wall(conf,conf->ray.xhortocheck ,conf->ray.yhortocheck) == '1' || has_wall(conf,conf->ray.xhortocheck ,conf->ray.yhortocheck) == '2') 
         {
             // printf("%c\n",has_wall(conf->ray.nexthox ,conf->ray.nexthoy - conf->ray.facingup ? 1 : 0));
             conf->ray.foundhorwallhit = 1;
             conf->ray.horwallhitx = conf->ray.nexthox;
             conf->ray.horwallhity = conf->ray.nexthoy;
+             conf->ray.horwallcontent = map[(int)floor(conf->ray.yhortocheck / TILE_SIZE)][(int)floor(conf->ray.xhortocheck / TILE_SIZE)];
+            //  printf("%d\n",conf->ray.horwallcontent);
             break;
         }
         else{
@@ -278,10 +292,13 @@ double   ver_intersection(t_conf *conf, double _ang)
         conf->ray.yvertocheck = conf->ray.nextvery;
         
         // printf("%d\n",conf->player.width);
-        if(has_wall(conf,conf->ray.xvertocheck,conf->ray.yvertocheck) == '1') 
+        if(has_wall(conf,conf->ray.xvertocheck,conf->ray.yvertocheck) == '1' || has_wall(conf,conf->ray.xvertocheck,conf->ray.yvertocheck) == '2') 
         {
             conf->ray.verwallhitx = conf->ray.nextverx;
             conf->ray.verwallhity = conf->ray.nextvery;
+            //zid hadi
+            conf->ray.verwallcontent = map[(int)floor(conf->ray.yvertocheck / TILE_SIZE)][(int)floor(conf->ray.xvertocheck / TILE_SIZE)];
+            // printf("tt = %d\n", map[(int)floor(conf->ray.xvertocheck / TILE_SIZE)][(int)floor(conf->ray.yvertocheck / TILE_SIZE)]);
             conf->ray.foundverwallhit = 1;
             break;
         }
@@ -327,6 +344,8 @@ void    check_intersection(t_conf *conf, double _ang,int i)
 		conf->ray.wallhitY = conf->ray.horwallhity;
         conf->ray.distance = conf->ray.hordist;
         conf->ray.washitvert = 0;
+        conf->ray.wallcon = conf->ray.horwallcontent;
+        // printf("adf = %d\n",conf->ray.horwallcontent);
 	}
 	else
 	{
@@ -334,7 +353,8 @@ void    check_intersection(t_conf *conf, double _ang,int i)
 		conf->ray.wallhitY  = conf->ray.verwallhity;
         conf->ray.distance = conf->ray.verdist;
 		conf->ray.washitvert = 1;
-
+        conf->ray.wallcon = conf->ray.verwallcontent;
+        // printf("adf = %d\n",conf->ray.verwallcontent);
 	}
      
     // double foundhorwallhit = 0; 
@@ -406,6 +426,8 @@ void cast_rays(t_conf *conf)
     conf->wall.facedown = malloc(sizeof(double) * conf->ray.num_rays);
     conf->wall.faceright = malloc(sizeof(double) * conf->ray.num_rays);
     conf->wall.faceleft = malloc(sizeof(double) * conf->ray.num_rays);
+    conf->wall.con = malloc(sizeof(double) * conf->ray.num_rays);
+    // conf->wall.conhor = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
     // while(i < 1)
     {
@@ -430,6 +452,8 @@ void cast_rays(t_conf *conf)
         conf->wall.wX[i] = conf->ray.wallhitX;
         conf->wall.wY[i] = conf->ray.wallhitY;
         conf->wall.hitver[i] = conf->ray.washitvert; 
+        conf->wall.con[i] = conf->ray.wallcon;
+        // conf->wall.conhor[i] = 
         // conf->wall.faceleft[i] = conf->ray.facingleft;
         // conf->wall.faceright[i] = conf->ray.facingright;
         // conf->wall.faceup[i] = conf->ray.facingup;
@@ -512,8 +536,8 @@ void mapp_print(t_conf *conf)
             // printf("%c",map[i][j]);
             if(map[i][j] == '1')
                 print_rectangl(conf,i, j,GRAY,0);
-            // else if(map[i][j] == '0' || map[i][j] == 'S')
-            //     print_rectangl(conf,i, j,WHITE,0);
+            else if(map[i][j] == '0' || map[i][j] == 'S')
+                print_rectangl(conf,i, j,WHITE,0);
             else if(map[i][j] == '2')
                 print_rectangl(conf,i, j,C1,0);
             j++;
@@ -573,17 +597,15 @@ void    draw_wall(t_conf *conf)
 		// printf("x = %f y =%f\n", conf->wall.wY[conf->wall.drawStartx], conf->wall.wX[conf->wall.drawStartx]);
 	// puts("here");
 	if(conf->wall.hitver[conf->wall.drawStartx])
-	{
 		texoffsetX = (int)conf->wall.wY[conf->wall.drawStartx] % TILE_SIZE;
-	}
 	else
-	{
-	// puts("here");
 		texoffsetX = (int)conf->wall.wX[conf->wall.drawStartx] % TILE_SIZE;
-	}
 	// exit(0);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
+    // printf("%d\n",conf->wall.hitver[conf->wall.drawStartx] % 64);
 	int color;
+    int texnm = conf->wall.con[conf->wall.drawStartx];
+    // printf("%d   \n",texnm);
     // y = conf->wall.topwall  ;
 	y = conf->wall.topwall < 0 ? -conf->wall.topwall : 0;
     texture_facing(conf);
@@ -598,6 +620,11 @@ void    draw_wall(t_conf *conf)
 		texoffsetY = (y) * (TEX_HEIGHT / conf->wall.wallstripheight);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
 		color = conf->elem[conf->txtnbr].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
+        if(texnm == '2')
+        {
+            // puts("here");
+            color = conf->elem[4].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
+        }
 		// color = C1;
         conf->img.addr[((y + conf->wall.topwall) * conf->player.width  + (conf->wall.drawStartx + 1))] = color;
         y++;

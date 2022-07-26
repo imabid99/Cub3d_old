@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/26 11:12:14 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/26 14:43:30 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,16 @@ t_texture	load_img(char *path, void *mlx)
 void    init_all(t_conf *conf)
 {
     int i;
-    char *path[4];
+    char *path[5];
     path[0] = "asset/east.xpm";
     path[1] = "asset/north.xpm";
     path[2] = "asset/south.xpm";
     path[3] = "asset/west.xpm";
+    path[4] = "asset/haha.xpm";
 
 	i = -1;
-    conf->elem = malloc(sizeof(t_elements) * 4);
-	while (++i < 4)
+    conf->elem = malloc(sizeof(t_elements) * 5);
+	while (++i < 5)
     {
 		conf->elem[i].texture = load_img(path[i], conf->mlx);
         
