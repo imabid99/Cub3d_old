@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/26 16:01:59 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/27 10:35:52 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char    has_wall(t_conf *conf,double x,double y)
 }
 void move_to(t_conf *conf)
 {   
+    // zadt hna
     float pdx = -sin(conf->player.rotangle - PI / 2);
     float pdy = cos(conf->player.rotangle - PI / 2);
     if (conf->player.to_a == 1)
@@ -184,14 +185,20 @@ void move_to(t_conf *conf)
             
         } 
     }
-    // if (conf->player.to_space == 1)
-    // {
-    //     if (map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1')
-    //     {
-    //         map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '0';
-    //         conf->player.to_space = 0;
-    //     }
-    // }
+    // zadt hna
+    if (conf->player.to_space == 1)
+    {
+        if(conf->ray.facingdown)
+        {
+            if (map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] == '2')
+                map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '0';
+        }
+        else if(conf->ray.facingup)
+        {
+            if (map[(int)((conf->player.py - 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] == '2')
+                map[(int)((conf->player.py - 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '0';
+        }
+    }
 }
 void    rayfacing(t_conf *conf, double _ang)
 {
@@ -243,6 +250,7 @@ double    hoz_intersection(t_conf *conf, double _ang)
             conf->ray.foundhorwallhit = 1;
             conf->ray.horwallhitx = conf->ray.nexthox;
             conf->ray.horwallhity = conf->ray.nexthoy;
+            // zadt hna
              conf->ray.horwallcontent = map[(int)floor(conf->ray.yhortocheck / TILE_SIZE)][(int)floor(conf->ray.xhortocheck / TILE_SIZE)];
             //  printf("%d\n",conf->ray.horwallcontent);
             break;
@@ -297,6 +305,7 @@ double   ver_intersection(t_conf *conf, double _ang)
             conf->ray.verwallhitx = conf->ray.nextverx;
             conf->ray.verwallhity = conf->ray.nextvery;
             //zid hadi
+            // zadt hna
             conf->ray.verwallcontent = map[(int)floor(conf->ray.yvertocheck / TILE_SIZE)][(int)floor(conf->ray.xvertocheck / TILE_SIZE)];
             // printf("tt = %d\n", map[(int)floor(conf->ray.xvertocheck / TILE_SIZE)][(int)floor(conf->ray.yvertocheck / TILE_SIZE)]);
             conf->ray.foundverwallhit = 1;
@@ -344,6 +353,7 @@ void    check_intersection(t_conf *conf, double _ang,int i)
 		conf->ray.wallhitY = conf->ray.horwallhity;
         conf->ray.distance = conf->ray.hordist;
         conf->ray.washitvert = 0;
+        // zadt hna
         conf->ray.wallcon = conf->ray.horwallcontent;
         // printf("adf = %d\n",conf->ray.horwallcontent);
 	}
@@ -353,6 +363,7 @@ void    check_intersection(t_conf *conf, double _ang,int i)
 		conf->ray.wallhitY  = conf->ray.verwallhity;
         conf->ray.distance = conf->ray.verdist;
 		conf->ray.washitvert = 1;
+        // zadt hna
         conf->ray.wallcon = conf->ray.verwallcontent;
         // printf("adf = %d\n",conf->ray.verwallcontent);
 	}
@@ -426,6 +437,7 @@ void cast_rays(t_conf *conf)
     conf->wall.facedown = malloc(sizeof(double) * conf->ray.num_rays);
     conf->wall.faceright = malloc(sizeof(double) * conf->ray.num_rays);
     conf->wall.faceleft = malloc(sizeof(double) * conf->ray.num_rays);
+    // zadt hna
     conf->wall.con = malloc(sizeof(double) * conf->ray.num_rays);
     // conf->wall.conhor = malloc(sizeof(double) * conf->ray.num_rays);
     while(i < conf->ray.num_rays)
@@ -452,6 +464,7 @@ void cast_rays(t_conf *conf)
         conf->wall.wX[i] = conf->ray.wallhitX;
         conf->wall.wY[i] = conf->ray.wallhitY;
         conf->wall.hitver[i] = conf->ray.washitvert; 
+        // zadt hna
         conf->wall.con[i] = conf->ray.wallcon;
         // conf->wall.conhor[i] = 
         // conf->wall.faceleft[i] = conf->ray.facingleft;
@@ -604,6 +617,7 @@ void    draw_wall(t_conf *conf)
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
     // printf("%d\n",conf->wall.hitver[conf->wall.drawStartx] % 64);
 	int color;
+    // zadt hna
     int texnm = conf->wall.con[conf->wall.drawStartx];
     // printf("%d   \n",texnm);
     // y = conf->wall.topwall  ;
@@ -620,6 +634,7 @@ void    draw_wall(t_conf *conf)
 		texoffsetY = (y) * (TEX_HEIGHT / conf->wall.wallstripheight);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
 		color = conf->elem[conf->txtnbr].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
+        // zadt hna
         if(texnm == '2')
         {
             // puts("here");

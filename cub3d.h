@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/26 15:39:51 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/27 10:36:17 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct ray
 	double hordist;
 	double wallhitX;
 	double wallhitY;
+	// zadt hna
 	int  verwallcontent;
 	int  horwallcontent;
 	int wallcon;
@@ -131,6 +132,7 @@ typedef struct s_wall
 	double *facedown;
 	double *faceright;
 	double *faceleft;
+	// zadt hna
 	int *con;
 	int a;
 
