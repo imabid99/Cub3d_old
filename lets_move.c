@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/27 10:33:45 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/27 17:49:17 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,26 @@ int player_move(int key,void *param)
         conf->player.to_space = 1;
 
     }
+    else if(key == 9)
+    {
+        // if(conf->ray.facingdown)
+        // {
+        //     if (map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] == '0')
+        //         map[(int)((conf->player.py + 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '2';
+        // }
+        // else if(conf->ray.facingup)
+        // {
+        //     if (map[(int)((conf->player.py - 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] == '0')
+        //         map[(int)((conf->player.py - 20 + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - 20 + (pdx * conf->player.movespeed)) / TILE_SIZE)] = '2';
+        // }
+        // conf->img.img = mlx_xpm_file_to_image(conf->mlx,"asset/haha.xpm",&conf->img.img_width,&conf->img.img_height);
+        // mlx_put_image_to_window(conf->mlx,conf->mlx_win, conf->img.img,conf->img.img_width,conf->img.img_height);
+    }
+    else if(key == 3)
+    {
+            conf->oo.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun2222.xpm",&conf->oo.img_width,&conf->oo.img_height);
+            mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->oo.img,(WIDTH / 2) - 200 , HEIGHT - 360);
+    }
     // printf("key = %d",key);
     // else if (key == )
     // rotate(conf);
@@ -80,6 +100,8 @@ int player_move(int key,void *param)
 
 int keyrealeased(int key,t_conf *conf)
 {
+    // printf("%d",key);
+    // puts("here");
     if(key == ESC)
         exit(0);
     else if (key == W)
