@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/28 11:43:24 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/28 16:26:43 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ char old_map[16][16] =
         {'1','0','1','0','0','0','0','1','1','1','1','1','1','1','1','1'},
         {'1','0','1','0','0','0','0','1','0','1','0','0','0','0','0','1'},
         {'1','0','2','0','0','0','0','1','0','1','1','1','1','1','0','1'},
-        {'1','0','1','0','0','0','0','2','0','2','2','0','0','0','0','1'},
+        {'1','0','1','0','0','0','0','2','0','2','0','0','0','0','0','1'},
         {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}
 };
 
@@ -196,19 +196,19 @@ void move_to(t_conf *conf)
         conf->player.py += cos(conf->player.rotangle) * conf->player.movespeed;  
         }
     }
+    // zadt hna
     if (conf->player.to_w == 1)
     {
-        if (map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1' && map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '2'  )
+        if (map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1' 
+        && map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '2' )
         {
             
             conf->player.px += pdx * conf->player.movespeed;
-            conf->player.py += pdy * conf->player.movespeed;
+            // conf->player.py += pdy * conf->player.movespeed;
         }
-        // else
-        // {
-        //     conf->player.px -= sin(conf->player.rotangle) * conf->player.movespeed;
-        //     conf->player.py += cos(conf->player.rotangle) * conf->player.movespeed;
-        // }
+        if(map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '1' 
+        && map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '2')
+            conf->player.py += pdy * conf->player.movespeed;
     }
     if (conf->player.to_s == 1)
     {
@@ -738,10 +738,10 @@ void    try_to_close_door(t_conf *conf)
     pdy = cos(conf->player.rotangle - PI / 2);
     y = (int)(conf->player.py / TILE_SIZE);
     x = (int)(conf->player.px / TILE_SIZE);
-    while (i < 15)
+    while (i < 16)
     {
         j = 0;
-        while (j < 15)
+        while (j < 16)
         {
             if (old_map[i][j] && old_map[i][j] == '2')
             {
@@ -766,11 +766,13 @@ int main_loop(t_conf *conf)
     player_print(conf);
     // zadt hna 2
     conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun111.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
+    conf->mygun.img2 = mlx_xpm_file_to_image(conf->mlx,"asset/kkl.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);
     // zadt hna 2
     mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
+    // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img2,(WIDTH / 2) - 100, (HEIGHT / 2) + 20);
     try_to_close_door(conf);
     // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->img.img,150,14);
     return 0;
