@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/27 17:47:21 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/28 11:42:04 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 #define rotationAngle = ang / 2;
 #define DR (1 * (M_PI / 180))
 #define TILE_SIZE 64
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 800
+#define HEIGHT 800
 #define rotspeeed DR  * 3
 #define PI 3.1415926535
 #define two_PI 6.28318530 
@@ -137,7 +137,7 @@ typedef struct s_wall
 	int a;
 
 } t_wall;
-typedef struct s_aa
+typedef struct s_gun
 {
 	void *img;
 	int	*addr;
@@ -146,7 +146,7 @@ typedef struct s_aa
 	int		endian;
 	int		img_height;
 	int 	img_width;
-}	t_aa;
+}	t_gun;
 typedef struct s_img
 {
 	void *img;
@@ -187,7 +187,7 @@ typedef struct s_conf {
 	t_player	player;
 	t_elements	*elem;
 	t_img	img;
-	t_aa	oo;
+	t_gun	mygun;
 	t_ray	ray;
 	t_wall wall;
 }		t_conf;

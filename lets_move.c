@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/27 17:49:17 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/28 11:43:12 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,11 @@ int player_move(int key,void *param)
         // conf->img.img = mlx_xpm_file_to_image(conf->mlx,"asset/haha.xpm",&conf->img.img_width,&conf->img.img_height);
         // mlx_put_image_to_window(conf->mlx,conf->mlx_win, conf->img.img,conf->img.img_width,conf->img.img_height);
     }
+    // zadt hna 2
     else if(key == 3)
     {
-            conf->oo.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun2222.xpm",&conf->oo.img_width,&conf->oo.img_height);
-            mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->oo.img,(WIDTH / 2) - 200 , HEIGHT - 360);
+        conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun2222.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
+        mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
     }
     // printf("key = %d",key);
     // else if (key == )
@@ -117,7 +118,6 @@ int keyrealeased(int key,t_conf *conf)
     else if(key == 124)
     {
         conf->player.to_back = 0;
-        // puts("hiahia");
     }
     else if(key == 49)
         conf->player.to_space = 0;

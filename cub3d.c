@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/27 17:45:30 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/28 11:43:24 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -587,7 +587,7 @@ void mapp_print(t_conf *conf)
             else if(map[i][j] == '0' || map[i][j] == 'S')
                 print_rectangl(conf,i, j,WHITE,0);
             else if(map[i][j] == '2')
-                print_rectangl(conf,i, j,C1,0);
+                print_rectangl(conf,i, j,C2,0);
             j++;
         }
         // printf("\n");
@@ -764,11 +764,13 @@ int main_loop(t_conf *conf)
     render3d(conf);
     mapp_print(conf);
     player_print(conf);
-    conf->oo.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun111.xpm",&conf->oo.img_width,&conf->oo.img_height);
+    // zadt hna 2
+    conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun111.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);
-    mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->oo.img,(WIDTH / 2) - 200 , HEIGHT - 360);
+    // zadt hna 2
+    mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
     try_to_close_door(conf);
     // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->img.img,150,14);
     return 0;
