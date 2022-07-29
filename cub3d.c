@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/28 16:26:43 by imabid           ###   ########.fr       */
+/*   Updated: 2022/07/29 20:20:18 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char map[16][16] =
         {'1','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','2','1','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','1'},
+        {'1','0','2','0','0','0','0','1'},
         {'1','0','1','0','S','0','0','1'},
         {'1','0','2','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1'},
@@ -135,7 +135,7 @@ char old_map[16][16] =
         {'1','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','2','1','0','0','0','0','1'},
-        {'1','0','0','0','0','0','0','1'},
+        {'1','0','2','0','0','0','0','1'},
         {'1','0','1','0','S','0','0','1'},
         {'1','0','2','0','0','0','0','1'},
         {'1','0','1','0','0','0','0','1'},
@@ -197,26 +197,46 @@ void move_to(t_conf *conf)
         }
     }
     // zadt hna
+    // badal hadi llah ihafdk 
     if (conf->player.to_w == 1)
     {
-        if (map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '1' 
-        && map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px + (pdx * conf->player.movespeed)) / TILE_SIZE)] != '2' )
+        if (map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px + (cos(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)] != '1' 
+        && map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px + (cos(conf->player.rotangle) * conf->player.movespeed)) / TILE_SIZE)] != '2' )
         {
-            
-            conf->player.px += pdx * conf->player.movespeed;
+            conf->player.px += cos(conf->player.rotangle) * conf->player.movespeed;
             // conf->player.py += pdy * conf->player.movespeed;
         }
-        if(map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '1' 
-        && map[(int)((conf->player.py + (pdy * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '2')
-            conf->player.py += pdy * conf->player.movespeed;
+        if(map[(int)((conf->player.py + (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '1' 
+        && map[(int)((conf->player.py + (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '2')
+        {
+            conf->player.py += sin(conf->player.rotangle ) * conf->player.movespeed;
+        }
     }
+    // if (conf->player.to_w == 1)
+    // {
+    //     if (map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px - (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '1' 
+    //     && map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px - (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '2' )
+    //     {
+            
+    //         conf->player.px += pdx * conf->player.movespeed;
+    //         puts("here");
+    //         // conf->player.py += pdy * conf->player.movespeed;
+    //     }
+    //     if(map[(int)((conf->player.py + (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '1' 
+    //     && map[(int)((conf->player.py + (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px) / TILE_SIZE)] != '2')
+    //     {
+    //         conf->player.py += pdy * conf->player.movespeed;
+    //         puts("here1");
+            
+    //     }
+    // }
     if (conf->player.to_s == 1)
     {
-        if(map[(int)((conf->player.py - (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '1'
-        && map[(int)((conf->player.py - (cos(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px + (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '2')
+        if(map[(int)((conf->player.py - (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - (cos(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)] != '1'
+        && map[(int)((conf->player.py - (sin(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)][(int)((conf->player.px - (cos(conf->player.rotangle ) * conf->player.movespeed)) / TILE_SIZE)] != '2')
         {
-        conf->player.px += sin(conf->player.rotangle - PI / 2) * conf->player.movespeed;
-        conf->player.py -= cos(conf->player.rotangle - PI / 2) * conf->player.movespeed;
+        conf->player.px -= cos(conf->player.rotangle) * conf->player.movespeed;
+        conf->player.py -= sin(conf->player.rotangle) * conf->player.movespeed;
             
         } 
     }
