@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/29 20:20:18 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/02 17:55:20 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,6 @@ void print_rectangl1(t_conf *conf, int y, int x, int color, int line)
 
 char map[16][16] =
     {
-        // {'1', '1', '1', '1', '1', '1', '1', '1', '1'},
-        // {'0', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'0', '0', '0', 'S', '0', '0', '0', '1', '1'},
-        // {'1', '0', '0', '1', '1', '1', '1', '1', '1'},
-        // {'1', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'1', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'1', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'1', '1', '1', '1', '1', '1', '1', '1', '1'},
-        // {1,1,1,1,1,1,1,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {0,0,0,2,0,0,0,1,1},
-        // {1,0,0,1,1,1,1,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {1,1,1,1,1,1,1,1,1},
         {'1','1','1','1','1','1','1','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
@@ -115,22 +99,6 @@ char map[16][16] =
 };
 char old_map[16][16] =
     {
-        // {'1', '1', '1', '1', '1', '1', '1', '1', '1'},
-        // {'0', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'0', '0', '0', 'S', '0', '0', '0', '1', '1'},
-        // {'1', '0', '0', '1', '1', '1', '1', '1', '1'},
-        // {'1', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'1', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'1', '0', '0', '0', '0', '0', '0', '1', '1'},
-        // {'1', '1', '1', '1', '1', '1', '1', '1', '1'},
-        // {1,1,1,1,1,1,1,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {0,0,0,2,0,0,0,1,1},
-        // {1,0,0,1,1,1,1,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {1,0,0,0,0,0,0,1,1},
-        // {1,1,1,1,1,1,1,1,1},
         {'1','1','1','1','1','1','1','1'},
         {'1','0','0','0','0','0','0','1'},
         {'1','0','0','0','0','0','0','1'},
@@ -212,6 +180,7 @@ void move_to(t_conf *conf)
             conf->player.py += sin(conf->player.rotangle ) * conf->player.movespeed;
         }
     }
+    // hadi l9dima
     // if (conf->player.to_w == 1)
     // {
     //     if (map[(int)((conf->player.py) / TILE_SIZE)][(int)((conf->player.px - (sin(conf->player.rotangle - PI / 2) * conf->player.movespeed)) / TILE_SIZE)] != '1' 
@@ -272,7 +241,7 @@ double    hoz_intersection(t_conf *conf, double _ang)
     conf->ray.yintercept += conf->ray.facingdown ? TILE_SIZE : 0; 
     // bach nl9aw x_coordinate dyal closest horix grid intersection
     conf->ray.xintercept = conf->player.px + (conf->ray.yintercept - conf->player.py) / tan(_ang);
-    // printf("--%f---%f--\n",floor(conf->player.py/TILE_SIZE),conf->player.py / TILE_SIZE);
+    // printf("--%f---%f--\n",floor(conf->player.py/TILE_SIZE),conf->player.py / TILE_SIZE) ;
 
     // n7sbo increment dyal xstep o ystep
     conf->ray.ystep = TILE_SIZE;
@@ -306,7 +275,7 @@ double    hoz_intersection(t_conf *conf, double _ang)
             conf->ray.horwallhitx = conf->ray.nexthox;
             conf->ray.horwallhity = conf->ray.nexthoy;
             // zadt hna
-             conf->ray.horwallcontent = map[(int)floor(conf->ray.yhortocheck / TILE_SIZE)][(int)floor(conf->ray.xhortocheck / TILE_SIZE)];
+            conf->ray.horwallcontent = map[(int)floor(conf->ray.yhortocheck / TILE_SIZE)][(int)floor(conf->ray.xhortocheck / TILE_SIZE)];
             //  printf("%d\n",conf->ray.horwallcontent);
             break;
         }
@@ -392,16 +361,6 @@ void    check_intersection(t_conf *conf, double _ang,int i)
     conf->ray.hordist = hoz_intersection(conf, _ang);
     // hoz_intersection(conf);
     conf->ray.verdist = ver_intersection(conf, _ang);
-    // printf("hordist = %f ==== verdist = %f ",floor(conf->ray.hordist),floor(conf->ray.verdist));
-    // printf("angle = %f\n",conf->ray.rayangle);
-    // exit(0);
-    // ver_intersection(conf);
-    // hna kanstori smallest of the distancce
-    // conf->ray.wallhitX = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.horwallhitx : conf->ray.verwallhitx;
-    // conf->ray.wallhitY = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.horwallhity : conf->ray.verwallhity;
-    // conf->ray.distance = (conf->ray.hordist < conf->ray.verdist) ? conf->ray.hordist : conf->ray.verdist;
-    // conf->ray.washitvert = conf->ray.verdist < conf->ray.hordist;
-    // n7asbo both horz and ver onchofo chkon li 9rab
     if (conf->ray.verdist > conf->ray.hordist)
 	{
 		conf->ray.wallhitX = conf->ray.horwallhitx;
@@ -505,10 +464,10 @@ void cast_rays(t_conf *conf)
         // conf->wall.faceup[i] = conf->ray.facingup;
         // conf->wall.facedown[i] = conf->ray.facingdown;
         check_intersection(conf, _ang,i);
-        // line(conf,conf->player.py * minimap,
-	    // conf->player.px * minimap,
-	    // conf->ray.wallhitY * minimap,
-	    // conf->ray.wallhitX * minimap, C1);
+        line(conf,conf->player.py * minimap,
+	    conf->player.px * minimap,
+	    conf->ray.wallhitY * minimap,
+	    conf->ray.wallhitX * minimap, C1);
         // line(conf,conf->player.py ,
 	    // conf->player.px ,
 	    // conf->ray.wallhitY ,
@@ -784,6 +743,7 @@ int main_loop(t_conf *conf)
     render3d(conf);
     mapp_print(conf);
     player_print(conf);
+    // cast_rays(conf);
     // zadt hna 2
     conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun111.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     conf->mygun.img2 = mlx_xpm_file_to_image(conf->mlx,"asset/kkl.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
