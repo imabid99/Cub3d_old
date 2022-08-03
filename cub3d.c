@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/02 17:55:20 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 11:57:51 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -710,11 +710,6 @@ void    try_to_close_door(t_conf *conf)
     int    y;
 
     i = 0;
-    float    pdx;
-    float    pdy;
-
-    pdx = -sin(conf->player.rotangle - PI / 2);
-    pdy = cos(conf->player.rotangle - PI / 2);
     y = (int)(conf->player.py / TILE_SIZE);
     x = (int)(conf->player.px / TILE_SIZE);
     while (i < 16)
