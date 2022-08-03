@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 14:20:34 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 14:52:17 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_gun
 	void *img;
 	void *img2;
 	void *img3;
+	void *img4;
 	
 	int	*addr;
 	int		bits_per_pixel;
@@ -195,6 +196,7 @@ typedef struct s_conf {
 	t_wall wall;
 	int		ammo;
 	int		r;
+	int k;
 }		t_conf;
 
 

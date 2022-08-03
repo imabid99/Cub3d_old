@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 14:20:07 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 15:12:27 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void    init_all(t_conf *conf)
     conf->txtnbr = 0;
     conf->ammo = 15;
     conf->r = 0;
+    conf->k = 0;
 }
