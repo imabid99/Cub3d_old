@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 11:57:51 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 14:06:00 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -733,6 +733,10 @@ void    try_to_close_door(t_conf *conf)
 
 int main_loop(t_conf *conf)
 {
+    int ammo;
+
+    ammo = conf->ammo;
+    void    *img;
     ft_clear(conf);
     cast_rays(conf);
     render3d(conf);
@@ -741,12 +745,21 @@ int main_loop(t_conf *conf)
     // cast_rays(conf);
     // zadt hna 2
     conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun111.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
+    img = mlx_xpm_file_to_image(conf->mlx,"asset/ammo.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     conf->mygun.img2 = mlx_xpm_file_to_image(conf->mlx,"asset/kkl.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);
     // zadt hna 2
-    mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
+    if (conf->r == 0 && conf->ammo > 0)
+        mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
+    if(conf->ammo <= 0)
+    {
+        conf->mygun.img3 = mlx_xpm_file_to_image(conf->mlx,"asset/knife3.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
+        mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img3,(WIDTH / 2) - 225, HEIGHT - 254);
+    }
+    while (conf->r == 0 && ammo-- > 0)
+        mlx_put_image_to_window(conf->mlx,conf->mlx_win,img,(ammo * 32), HEIGHT - 70);
     // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img2,(WIDTH / 2) - 100, (HEIGHT / 2) + 20);
     try_to_close_door(conf);
     // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->img.img,150,14);

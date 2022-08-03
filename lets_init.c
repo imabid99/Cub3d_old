@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/27 17:12:48 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 14:06:10 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ void    init_all(t_conf *conf)
     conf->ray.num_rays = WIDTH; 
     conf->player.width = WIDTH;
     conf->player.height = HEIGHT;
-    conf->txtnbr = 0;   
+    conf->txtnbr = 0;
+    conf->ammo = 15;
+    conf->r = 0;
 }

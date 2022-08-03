@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/07/28 11:43:12 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 13:56:29 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,17 @@ int player_move(int key,void *param)
     // zadt hna 2
     else if(key == 3)
     {
-        conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun2222.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
-        mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
+            conf->ammo--;
+        if(conf->ammo >= 0)
+        {
+            conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun2222.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
+            mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
+        }
+    }
+    else if (key == 15 && conf->ammo < 5)
+    {
+        conf->r = 1;
+        conf->ammo = 15;
     }
     // printf("key = %d",key);
     // else if (key == )
@@ -121,6 +130,8 @@ int keyrealeased(int key,t_conf *conf)
     }
     else if(key == 49)
         conf->player.to_space = 0;
+    else if (key == 15)
+        conf->r = 0;
     return 1;
 }
 
