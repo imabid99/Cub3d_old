@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 14:06:00 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/03 14:31:13 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -755,8 +755,8 @@ int main_loop(t_conf *conf)
         mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
     if(conf->ammo <= 0)
     {
-        conf->mygun.img3 = mlx_xpm_file_to_image(conf->mlx,"asset/knife3.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
-        mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img3,(WIDTH / 2) - 225, HEIGHT - 254);
+        conf->mygun.img3 = mlx_xpm_file_to_image(conf->mlx,"asset/knife6.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
+        mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img3,(WIDTH / 2) - 250, HEIGHT - 280);
     }
     while (conf->r == 0 && ammo-- > 0)
         mlx_put_image_to_window(conf->mlx,conf->mlx_win,img,(ammo * 32), HEIGHT - 70);
