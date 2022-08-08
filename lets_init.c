@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 15:12:27 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:46:02 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_texture	load_img(char *path, void *mlx)
 
 void    init_all(t_conf *conf)
 {
-    // zadt hna
     int i;
     char *path[5];
     path[0] = "asset/east.xpm";

@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 15:11:28 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:44:55 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -728,7 +728,6 @@ void    try_to_close_door(t_conf *conf)
         }
         i++;
     }
-    // puts("here");
 }
 
 int main_loop(t_conf *conf)
@@ -743,14 +742,12 @@ int main_loop(t_conf *conf)
     mapp_print(conf);
     player_print(conf);
     // cast_rays(conf);
-    // zadt hna 2
     conf->mygun.img = mlx_xpm_file_to_image(conf->mlx,"asset/gun111.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     img = mlx_xpm_file_to_image(conf->mlx,"asset/ammo.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     conf->mygun.img2 = mlx_xpm_file_to_image(conf->mlx,"asset/kkl.xpm",&conf->mygun.img_width,&conf->mygun.img_height);
     move_to(conf);
     rotate(conf);
     mlx_put_image_to_window(conf->mlx, conf->mlx_win, conf->img.img, 0, 0);
-    // zadt hna 2
     if (conf->r == 0 && conf->ammo > 0)
         mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img,(WIDTH / 2) - 300 , HEIGHT - 360);
     if(conf->ammo <= 0)
@@ -760,16 +757,13 @@ int main_loop(t_conf *conf)
     }
     while (conf->r == 0 && ammo-- > 0)
         mlx_put_image_to_window(conf->mlx,conf->mlx_win,img,(ammo * 32), HEIGHT - 70);
-    // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->mygun.img2,(WIDTH / 2) - 100, (HEIGHT / 2) + 20);
     try_to_close_door(conf);
-    // mlx_put_image_to_window(conf->mlx,conf->mlx_win,conf->img.img,150,14);
     return 0;
 }
 void cub3d_hook(t_conf *conf)
 {
     mlx_clear_window(conf->mlx, conf->mlx_win);
     ft_clear(conf);
-    // conf->img.img = mlx_xpm_file_to_image(conf->mlx,"asset/haha.xpm",&conf->img.img_height,&conf->img.img_width);
     mlx_hook(conf->mlx_win, 2, 1L << 0, player_move, conf);
     mlx_hook(conf->mlx_win, 17, 0, close_win, conf);
     mlx_hook(conf->mlx_win, 3, 1L << 1, keyrealeased, conf);
