@@ -6,25 +6,13 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:50:52 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/08 17:45:51 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/11 19:48:56 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 extern char map[16][16];
-// void    iam_wall(t_conf *conf)
-// {
-//     float x;
-//     float y;
-//     x = conf->player.px / 64;
-//     y = conf->player.py / 64;
-//     if(map[x][y] == 0)
-//         return 1;
-//     else 
-//         return 0;
-//     // return map[x][y] != 0 ;
-// }
 
 int player_move(int key,void *param)
 {

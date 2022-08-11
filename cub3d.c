@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/08 17:44:55 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/11 19:48:38 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,50 +33,10 @@ void print_rectangl(t_conf *conf, int y, int x, int color, int line)
         i++;
     }
 }
-// void print_rectangl(t_conf *conf, int y, int x, int color, int line)
-// {
-//     int i;
-//     int j;
-
-//     x *= (TILE_SIZE);
-//     y *= (TILE_SIZE);
-//     i = 0;
-//     while (i < (TILE_SIZE - line))
-//     {
-//         j = 0;
-//         while (j < (TILE_SIZE - line))
-//         {
-//             conf->img.addr[(int)((y + j) ) * conf->player.width + (int)((x + i) )] = color;
-//             // conf->img.addr[(( (minimap * y) + (minimap * j)) * conf->player.width + (minimap * x) + (minimap * i))] = color;
-//             j++;
-//         }
-//         i++;
-//     }
-// }
 void print_rectangl1(t_conf *conf, int y, int x, int color, int line)
 {
-    // int i;
-    // int j;
-
-    // x *= 1;
-    // y *= conf->wall.wallstripconf->player.height;
-    // i = 0;
-    // while (i < TILE_SIZE - line)
-    // {
-    //     j = 0;
-    //     while (j < TILE_SIZE - line)
-    //     {
             conf->img.addr[(int)((y)) * conf->player.width + (int)((x))] = color;
-            // conf->img.addr[(( (minimap * y) + (minimap * j)) * conf->player.width + (minimap * x) + (minimap * i))] = color;
-    //         j++;
-    //     }
-    //     i++;
-    // }
 }
-
-// float playerX = 100;
-// float playerY = 100;
-// int mapX = 16, mapY = 16, mapS = 64;
 
 char map[16][16] =
     {
@@ -143,7 +103,6 @@ char    has_wall(t_conf *conf,double x,double y)
 }
 void move_to(t_conf *conf)
 {   
-    // zadt hna
     float pdx = -sin(conf->player.rotangle - PI / 2);
     float pdy = cos(conf->player.rotangle - PI / 2);
     if (conf->player.to_a == 1)
@@ -164,7 +123,6 @@ void move_to(t_conf *conf)
         conf->player.py += cos(conf->player.rotangle) * conf->player.movespeed;  
         }
     }
-    // zadt hna
     // badal hadi llah ihafdk 
     if (conf->player.to_w == 1)
     {
@@ -231,11 +189,9 @@ void    rayfacing(t_conf *conf, double _ang)
     
     conf->ray.facingright = _ang < 0.5 * PI || _ang > 1.5 * PI;
     conf->ray.facingleft = !conf->ray.facingright;
-    // printf("%d\n",conf->ray.facingright);  
 }
 double    hoz_intersection(t_conf *conf, double _ang)
 {
-    // init_all2(conf);
     //   bach nl9aw y_coordinate dyal closest horix grid intersection
     conf->ray.yintercept = floor(conf->player.py / TILE_SIZE) * TILE_SIZE;
     conf->ray.yintercept += conf->ray.facingdown ? TILE_SIZE : 0; 
