@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:12:28 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/03 14:52:17 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/12 15:22:13 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-#include <math.h>
+# include <math.h>
 # define C2 0xC34A6A
 # define C1 0x7AE2B3
 # define WHITE 0xffffff
@@ -37,18 +37,18 @@
 # define A 0
 # define S 1
 # define D 2
-#define ang 3.14
-#define rotationAngle = ang / 2;
-#define DR (1 * (M_PI / 180))
-#define TILE_SIZE 64
-#define WIDTH 1000
-#define HEIGHT 1000
-#define rotspeeed DR  * 3
-#define PI 3.1415926535
-#define two_PI 6.28318530 
-#define minimap 0.1
-#define FOV (60 * (M_PI / 180)) 
-#define movesped 8
+# define ang 3.14
+# define rotationAngle = ang / 2;
+# define DR (1 * (M_PI / 180))
+# define TILE_SIZE 64
+# define WIDTH 1000
+# define HEIGHT 1000
+# define rotspeeed DR  * 3
+# define PI 3.1415926535
+# define two_PI 6.28318530 
+# define minimap 0.1
+# define FOV (60 * (M_PI / 180)) 
+# define movesped 8
 
 
 
