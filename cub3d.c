@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/12 18:46:15 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/13 14:01:12 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ double    hoz_intersection(t_conf *conf, double _ang)
     {
     //we return distance between two poins
         // printf(" disbtp = %f\n",disbtp(conf->player.px,conf->player.py,conf->ray.verwallhitx,conf->ray.verwallhity));
-        return(disbtp(conf->play  er.px,conf->player.py,conf->ray.horwallhitx,conf->ray.horwallhity));
+        return(disbtp(conf->player.px,conf->player.py,conf->ray.horwallhitx,conf->ray.horwallhity));
         
     }
     // puts("here");
