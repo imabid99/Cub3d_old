@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/13 14:01:12 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/13 19:44:32 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,11 +521,16 @@ void mapp_print(t_conf *conf)
         {
             // printf("%c",map[i][j]);
             if(map[i][j] == '1')
+            {
                 print_rectangl(conf,i, j,GRAY,0);
+                // printf("i = %d and j = %d\n",i , j);
+            }
             else if(map[i][j] == '0' || map[i][j] == 'S')
                 print_rectangl(conf,i, j,WHITE,0);
             else if(map[i][j] == '2')
+            {
                 print_rectangl(conf,i, j,C2,0);
+            }
             j++;
         }
         // printf("\n");
