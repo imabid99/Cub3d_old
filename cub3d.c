@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/15 12:01:28 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/15 16:42:42 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -610,7 +610,7 @@ void    draw_wall(t_conf *conf)
 		texoffsetY = disfromtop * ((float)TEX_HEIGHT / conf->wall.wallstripheight);
         // puts("here");
         // printf("00conf->wall.top=%d, 00conf->wall.bottomwall= %d\n",conf->wall.topwall,conf->wall.bottomwall);
-		// texoffsetY = (y) * (TEX_HEIGHT / conf->wall.wallstripheight);
+		// texoffsetY = (y) * (TEX_HEIGHT / 64 t);
 		// printf("x = %d y =%d\n", texoffsetX, texoffsetY);
 		color = conf->elem[conf->txtnbr].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
         // zadt hna
@@ -620,7 +620,7 @@ void    draw_wall(t_conf *conf)
             color = conf->elem[4].texture.addr[(texoffsetY * TEX_HEIGHT) + texoffsetX];
         }
 		// color = C1;
-        conf->img.addr[((y) * conf->player.width  + (conf->wall.drawStartx))] = color;
+        conf->img.addr[((y) * conf->player.width  + (conf->wall.drawStartx))] = 11111;
         y++;
     }
     int j = conf->wall.bottomwall;
