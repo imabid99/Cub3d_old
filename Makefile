@@ -6,7 +6,7 @@
 #    By: imabid <imabid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 11:20:17 by imabid            #+#    #+#              #
-#    Updated: 2022/06/15 14:56:39 by imabid           ###   ########.fr        #
+#    Updated: 2022/08/15 11:54:54 by imabid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,11 @@ OBJS = $(SRCS:.c=.o)
 OBJS1 = $(SRCS1:.c=.o)
 
 %.o: %.c *.h
-	$(CC) $(CC_FLAGS)  -c $< -o $@
+	$(CC) -g $(CC_FLAGS)  -c $< -o $@
 all: $(NAME)
 
 $(NAME): $(OBJS) 
-	$(CC) $(CC_FLAGS)  $^ -o $@ $(LIB)
+	$(CC) -g $(CC_FLAGS)  $^ -o $@ $(LIB)
 
 
 
