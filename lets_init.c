@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:40:26 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/14 13:39:37 by imabid           ###   ########.fr       */
+/*   Updated: 2022/08/17 15:20:55 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void    init_all(t_conf *conf)
 {
     int i;
     char *path[5];
-    path[0] = "asset/east.xpm";
-    path[1] = "asset/north.xpm";
-    path[2] = "asset/south.xpm";
-    path[3] = "asset/west.xpm";
-    path[4] = "asset/haha.xpm";
+    path[0] = "asset/output-onlinepngtools-_1_.xpm";
+    path[1] = "asset/output-onlinepngtools-_2_.xpm";
+    path[2] = "asset/output-onlinepngtools.xpm";
+    path[3] = "asset/output-onlinepngtools-_3__1.xpm";
+    path[4] = "asset/output-onlinepngtools-_4__1.xpm";
 
 	i = -1;
     conf->elem = malloc(sizeof(t_elements) * 5);
