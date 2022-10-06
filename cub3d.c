@@ -6,7 +6,7 @@
 /*   By: imabid <imabid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 11:11:34 by imabid            #+#    #+#             */
-/*   Updated: 2022/08/17 15:25:33 by imabid           ###   ########.fr       */
+/*   Updated: 2022/10/05 19:33:23 by imabid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,10 +427,10 @@ void cast_rays(t_conf *conf)
 	    conf->player.px * minimap,
 	    conf->ray.wallhitY * minimap,
 	    conf->ray.wallhitX * minimap, C1);
-        // line(conf,conf->player.py ,
-	    // conf->player.px ,
-	    // conf->ray.wallhitY ,
-	    // conf->ray.wallhitX , C1);
+        line(conf,conf->player.py ,
+	    conf->player.px ,
+	    conf->ray.wallhitY ,
+	    conf->ray.wallhitX , C1);
         _ang += FOV /conf->ray.num_rays;
         conf->ray.rayangle[i] = _ang;
         conf->wall.line_distance[i] = conf->ray.distance;

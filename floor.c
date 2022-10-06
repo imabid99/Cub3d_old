@@ -2,13 +2,13 @@
 #include <math.h>
 
 int main () {
-   float val1, val2, val3, val4;
+   float py, ts, val3, val4;
 
-   val1 = 270;
-   val2 = 64;
-   val3 = 64;
+   py = 68;
+   ts = 64;
 
-   printf("Value1 = %f\n", (floor(val1 / val2) * val3));
+   printf("Value1 = %f\n", ((py / ts) * ts));
+   printf("Value1 = %f\n", (floor(py / ts) * ts));
    
    return(0);
 }
